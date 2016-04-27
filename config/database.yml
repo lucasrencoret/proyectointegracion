@@ -7,17 +7,17 @@
 default: &default
   adapter: mysql
   database: entrega1
-  username: lucas
-  password: lucas
+  username: root 
+  password:
   pool: 5
-  timeout: 5000
+  timeout: 5000 
 
 development:
   <<: *default
   adapter: mysql
   database: entrega1
-  username: lucas
-  password: lucas
+  username: root
+  password:
   pool: 5
   timeout: 5000
 
@@ -28,8 +28,8 @@ test:
   <<: *default
   adapter: mysql
   database: entrega1
-  username: lucas
-  password: lucas
+  username: crosende1
+  password: taller
   pool: 5
   timeout: 5000
 
@@ -37,8 +37,8 @@ production:
   <<: *default
   adapter: mysql
   database: entrega1
-  username: lucas
-  password: lucas
+  username: crosende1
+  password: taller
   pool: 5
   timeout: 5000
 
