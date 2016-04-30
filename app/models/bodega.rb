@@ -18,13 +18,13 @@ def self.encrypt(texto)
 
 end
 
-def self.crear_string(request, parametro)
+def self.crear_string(request, parametro1, parametro2, parametro3, parametro4)
 	string_hash = "INTEGRACION grupo9:"
-	header_agregar = string_hash+encrypt(request+parametro)
+	header_agregar = string_hash+encrypt(request+parametro1+parametro2+parametro3+parametro4)
 end	
 	
 def self.getAlmacenes () #entrega informacion sobre los almacenes de la bodega solicitada
-	header = crear_string("GET","")
+	header = crear_string("GET","", "", "", "")
 	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
 	
@@ -38,16 +38,25 @@ def self.getAlmacenes () #entrega informacion sobre los almacenes de la bodega s
 end
 
 def self.getSkusWithStock(almacenId)
-	header = crear_string("GET",almacenId)
+	header = crear_string("GET",almacenId, "", "", "")
 	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/skusWithStock?almacenId='+almacenId , "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
 
 end
+
+def self.getStock(almacenId, sku) #devuelve todos los productos de un sku que estan en un almacen
+	header = crear_string("GET",almacenId, sku, "", "")
+	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read
+	resultado = JSON.parse(buffer)
+
+
+end
+
 def self.getCuentaFabrica () #entrega la cuenta id de la fabrica 
-	header = crear_string("GET","")
+	header = crear_string("GET","", "", "", "")
 	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
-	end
+end
 
 
 
