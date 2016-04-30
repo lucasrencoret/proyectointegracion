@@ -37,15 +37,17 @@ def self.getAlmacenes () #entrega informacion sobre los almacenes de la bodega s
 
 end
 
-def getSkusWithStock(almacenId)
+def self.getSkusWithStock(almacenId)
 	header = crear_string("GET",almacenId)
-	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/skusWithStock', "Content-Type"=>"application/json", "Authorization" => header).read
+	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/skusWithStock?almacenId='+almacenId , "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
-	
-
-
 
 end
+def self.getCuentaFabrica () #entrega la cuenta id de la fabrica 
+	header = crear_string("GET","")
+	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read
+	resultado = JSON.parse(buffer)
+	end
 
 
 
