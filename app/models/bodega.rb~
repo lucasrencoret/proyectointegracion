@@ -16,7 +16,6 @@ def self.encrypt(texto)
 	OpenSSL::HMAC.digest('SHA1',data,key)
 	Base64.encode64 OpenSSL::HMAC.digest('SHA1',data,key)
 
-
 end
 
 def self.crear_string(request, parametro1, parametro2, parametro3, parametro4)
