@@ -29,9 +29,9 @@ def self.getAlmacenes () #entrega informacion sobre los almacenes de la bodega s
 	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
 	
-	resultado.each do |bodega|
-		puts "#{bodega['_id']}\t#{bodega['grupo']}\t#{bodega['pulmon']}\t#{bodega['despacho']}\t#{bodega['recepcion']}\t#{bodega['totalSpace']}\t#{bodega['usedSpace']}\t"
-	end
+	#resultado.each do |bodega|
+	#	puts "#{bodega['_id']}\t#{bodega['grupo']}\t#{bodega['pulmon']}\t#{bodega['despacho']}\t#{bodega['recepcion']}\t#{bodega['totalSpace']}\t#{bodega['usedSpace']}\t"
+	#end
 	
 	
 	#rest-open-uri para hacer posts
@@ -59,7 +59,30 @@ def self.getCuentaFabrica () #entrega la cuenta id de la fabrica
 	resultado = JSON.parse(buffer)
 end
 
+def self.consultar(sku_request)
+	
+	#sku_request = params[:sku]
+	stock = getStockProducto(sku_request)
+	
+	resultado = {:stock => stock, :sku => sku_request}
+	JSON.parse(resultado) #render :json => resultado
+	
+end
 
+def self.getStockProducto(sku_request)
+	stock = 0
+	almacenes = getAlmacenes()
+
+	almacenes.each do |almacen|
+		#skus = getSkusWithStock(almacen['_id'])
+		#skus.each do |sku|
+		stock += getStock(almacen['_id'], sku_request)
+			#if (sku['_id']== sku_request)
+			#	stock+=sku['total']
+			#end
+		
+	end
+end
 
 end
 
