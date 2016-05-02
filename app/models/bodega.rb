@@ -7,11 +7,11 @@ require 'base64'
 require 'digest'
 require 'open-uri'
 require 'rest-client'
-<<<<<<< HEAD
-=======
+#<<<<<<< HEAD
+#=======
 require 'net/http'
 require 'uri'
->>>>>>> aeb959def17b8df93deabb0e059bd98967e6960a
+#>>>>>>> aeb959def17b8df93deabb0e059bd98967e6960a
 
 class Bodega < ActiveRecord::Base
 
@@ -59,44 +59,6 @@ def self.getStock(almacenId, sku) #devuelve todos los productos de un sku que es
 
 end
 
-def self.moveStock()#productId, almacenId
-	#header = crear_string("POST"+productId+almacenId)
-	
-	request_body_map = {
-   :productId => '571262b7a980ba030058a863',
-   :almacenId => '571262aaa980ba030058a3b2',
- }
-	
-	response = RestClient.post('http://integracion-2016-dev.herokuapp.com/bodega/moveStock',
-					 #request_body_map.to_json,
-					 {:Content_Type => 'application/json',
-					 :Authorization => 'INTEGRACION grupo9:hVJQgNPo8SK/czNCuImA8j3o6Y0='},
-					 {:productId => '571262b7a980ba030058a863',
-   					  :almacenId => '571262aaa980ba030058a3b2',}
-					 )
-					 
-					 #productId = '571262b7a980ba030058a863'
-					 #almacenId = '571262aaa980ba030058a40a'
-					 
-	#response = RestClient.post("#{host}/api/now/table/incident",
-     #                         request_body_map.to_json,    # Encode the entire body as JSON
-      #                        {:authorization => "Basic #{Base64.strict_encode64("#{user}:#{pwd}")}",
-       #                        :content_type => 'application/json',
-        #                       :accept => 'application/json'})
-end
-def self.moverStock()
-
-	uri = URI('http://integracion-2016-dev.herokuapp.com/bodega/moveStock')
-	params = { :productoId => '571262b7a980ba030058a863', :almacenId => '571262aaa980ba030058a3b2' }
-	uri.query = URI.encode_www_form(params)
-	#puts uri
-	res = Net::HTTP.post_form(uri, {'Content_Type' => 'application/json', 'Authorization' => 'INTEGRACION grupo9:hVJQgNPo8SK/czNCuImA8j3o6Y0='})
-	puts res.body
-	
-
-
-end
-
 def self.getCuentaFabrica () #entrega la cuenta id de la fabrica 
 	header = crear_string("GET")
 	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read
@@ -127,10 +89,22 @@ def self.getStockProducto(sku_request)
 		
 	end
 end
-def self.moverStock(productoid,almacenid)
+def self.moveStock(productoid,almacenid) #almacen de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
-		RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId =>almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId =>almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 end
+
+def self.moveStockBodega(productoid,almacenid, oc, precio) #Almacén de recepción de la bodega del grupo de destino
+	autorizacion =crear_string("POST"+productoid+almacenid)
+	RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId =>almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+end
+
+def self.stock()
+	
+	
+	
+end
+
 
 end
 
