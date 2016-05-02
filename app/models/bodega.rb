@@ -67,12 +67,9 @@ end
 
 def self.consultar(sku_request)
 	
-	#sku_request = params[:sku]
+	#sku_request = params[:sku] o por parametro de metodo
 	stock = getStockProducto(sku_request)
-	
-	resultado = {:stock => stock, :sku => sku_request}
-	JSON.parse(resultado) #render :json => resultado
-	
+	JSON.parse({:stock => stock, :sku => sku_request}.to_json)
 end
 
 def self.getStockProducto(sku_request)
@@ -80,14 +77,15 @@ def self.getStockProducto(sku_request)
 	almacenes = getAlmacenes()
 
 	almacenes.each do |almacen|
-		#skus = getSkusWithStock(almacen['_id'])
-		#skus.each do |sku|
-		stock += getStock(almacen['_id'], sku_request)
-			#if (sku['_id']== sku_request)
-			#	stock+=sku['total']
-			#end
+		todos_los_skus = getSkusWithStock(almacen['_id'])
+		todos_los_skus.each do |sku|
+			if (sku['_id']== sku_request)
+				stock+=sku['total']
+			end
+		end
 		
 	end
+	stock
 end
 def self.moveStock(productoid,almacenid) #almacen de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
