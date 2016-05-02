@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
   get 'api/consultar/:sku' => 'bodega#consultar'
-  post 'api/oc/recibir/:idoc' => 'bodega#recibirOc'
+  get 'api/oc/recibir/:idoc' => 'bodega#recibirOc'
+  get 'api/facturas/recibir/:idfactura' => 'bodega#recibirFactura'
+  get 'api/pagos/recibir/:idtrx' => 'bodega#recibirTransaccion'
+  get 'api/datos' => 'bodega#entregarCuenta'
+  get 'api/almacen' => 'bodega#entregarDespacho'
   
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
