@@ -34,13 +34,6 @@ def self.getAlmacenes () #entrega informacion sobre los almacenes de la bodega s
 	header = crear_string("GET")
 	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
-	
-	#resultado.each do |bodega|
-	#	puts "#{bodega['_id']}\t#{bodega['grupo']}\t#{bodega['pulmon']}\t#{bodega['despacho']}\t#{bodega['recepcion']}\t#{bodega['totalSpace']}\t#{bodega['usedSpace']}\t"
-	#end
-	
-	
-	#rest-open-uri para hacer posts
 
 end
 
@@ -95,8 +88,16 @@ end
 
 def self.despacharStock(productoId, direccion, precio, oc)
 	#DELETE
+	#header = crear_string("DELETE"+productoId+direccion+precio+oc)
+	#RestClient.delete 'http://integracion-2016-dev.herokuapp.com/bodega/stock', {:productoId => productoId, :direccion => direccion, :precio => precio, :oc => oc}.to_json, :Authorization => header, :content_type=> 'application/json'
 	
-	
+	#RestClient::Request.execute(method: :delete, url: 'http://integracion-2016-dev.herokuapp.com/bodega/stock',
+    #                       body: {:productoId => productoId, :direccion => direccion, :precio => precio, :oc => oc}.to_json, headers: {:Authorization => header, :Content_Type => 'application/json'})
+	#oc: 572789c5c1ff9b0300017d44
+	#precio: 2
+	#direccion: 571262b8a980ba030058ab54
+	#productoId: 571262b7a980ba030058a863
+	#[{"_id"=>"572789c5c1ff9b0300017d44", "created_at"=>"2016-05-02T17:09:25.369Z", "updated_at"=>"2016-05-02T17:09:25.369Z", "notas"=>"prueba", "cliente"=>"571262b8a980ba030058ab54", "proveedor"=>"571262b8a980ba030058ab57", "sku"=>"20", "estado"=>"aceptada", "fechaDespachos"=>[], "fechaEntrega"=>"2017-05-01T22:38:33.000Z", "precioUnitario"=>2, "cantidadDespachada"=>0, "cantidad"=>1, "canal"=>"b2b", "__v"=>0}]
 end
 
 def self.producirStock(sKu, trxid, cAntidad) 
