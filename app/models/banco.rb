@@ -18,4 +18,7 @@ def self.obtenerCartola(fechainicio,fechafin,iD)
 	RestClient.post 'http://mare.ing.puc.cl/banco/cartola', {:fechaInicio => fechainicio, :fechaFin => fechafin, :id => iD}.to_json, :content_type=> 'application/json'
 	
 end
+def self.transferir(moNto,oRigen,dEstino)
+	Restclient.put 'http://mare.ing.puc.cl/banco/trx/' , {:monto => moNto, :origen => oRigen, :destino => dEstino}.to_json, :content_type=> 'application/json'
+end
 end

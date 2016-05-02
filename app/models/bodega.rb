@@ -6,6 +6,7 @@ require 'openssl'
 require 'base64'
 require 'digest'
 require 'open-uri'
+require 'rest-client'
 
 class Bodega < ActiveRecord::Base
 
@@ -82,6 +83,10 @@ def self.getStockProducto(sku_request)
 			#end
 		
 	end
+end
+def self.moverStock(productoid,almacenid)
+	autorizacion =crear_string("POST"+productoid+almacenid)
+		RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId =>almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 end
 
 end
