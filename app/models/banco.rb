@@ -19,7 +19,7 @@ def self.obtenerCartola(fechainicio,fechafin,iD)
 	
 end
 def self.transferir(moNto,oRigen,dEstino)
-	RestClient.put 'http://mare.ing.puc.cl/banco/trx/' , {:monto => moNto, :origen => oRigen, :destino => dEstino}.to_json, :content_type=> 'application/json'
+	RestClient.put 'http://mare.ing.puc.cl/banco/trx/' , {:origen => oRigen, :destino => dEstino, :monto => moNto}.to_json, :content_type=> 'application/json'
 	
 end
 end
