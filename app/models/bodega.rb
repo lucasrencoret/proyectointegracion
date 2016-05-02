@@ -7,6 +7,11 @@ require 'base64'
 require 'digest'
 require 'open-uri'
 require 'rest-client'
+<<<<<<< HEAD
+=======
+require 'net/http'
+require 'uri'
+>>>>>>> aeb959def17b8df93deabb0e059bd98967e6960a
 
 class Bodega < ActiveRecord::Base
 
@@ -50,6 +55,44 @@ def self.getStock(almacenId, sku) #devuelve todos los productos de un sku que es
 	header = crear_string("GET"+almacenId+sku)
 	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
+
+
+end
+
+def self.moveStock()#productId, almacenId
+	#header = crear_string("POST"+productId+almacenId)
+	
+	request_body_map = {
+   :productId => '571262b7a980ba030058a863',
+   :almacenId => '571262aaa980ba030058a3b2',
+ }
+	
+	response = RestClient.post('http://integracion-2016-dev.herokuapp.com/bodega/moveStock',
+					 #request_body_map.to_json,
+					 {:Content_Type => 'application/json',
+					 :Authorization => 'INTEGRACION grupo9:hVJQgNPo8SK/czNCuImA8j3o6Y0='},
+					 {:productId => '571262b7a980ba030058a863',
+   					  :almacenId => '571262aaa980ba030058a3b2',}
+					 )
+					 
+					 #productId = '571262b7a980ba030058a863'
+					 #almacenId = '571262aaa980ba030058a40a'
+					 
+	#response = RestClient.post("#{host}/api/now/table/incident",
+     #                         request_body_map.to_json,    # Encode the entire body as JSON
+      #                        {:authorization => "Basic #{Base64.strict_encode64("#{user}:#{pwd}")}",
+       #                        :content_type => 'application/json',
+        #                       :accept => 'application/json'})
+end
+def self.moverStock()
+
+	uri = URI('http://integracion-2016-dev.herokuapp.com/bodega/moveStock')
+	params = { :productoId => '571262b7a980ba030058a863', :almacenId => '571262aaa980ba030058a3b2' }
+	uri.query = URI.encode_www_form(params)
+	#puts uri
+	res = Net::HTTP.post_form(uri, {'Content_Type' => 'application/json', 'Authorization' => 'INTEGRACION grupo9:hVJQgNPo8SK/czNCuImA8j3o6Y0='})
+	puts res.body
+	
 
 
 end
