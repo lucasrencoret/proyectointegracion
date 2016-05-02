@@ -59,11 +59,7 @@ def self.getStock(almacenId, sku) #devuelve todos los productos de un sku que es
 
 end
 
-def self.getCuentaFabrica () #entrega la cuenta id de la fabrica 
-	header = crear_string("GET")
-	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read
-	resultado = JSON.parse(buffer)
-end
+
 
 def self.consultar(sku_request)
 	
@@ -97,14 +93,20 @@ def self.moveStockBodega(productoid,almacenid, oc, precio) #AlmacÃ©n de recepciÃ
 	RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId =>almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 end
 
-def self.stock()
-	
+def self.despacharStock(productoId, direccion, precio, oc)
+	#DELETE
 	
 	
 end
 
+def self.producirStock()
+	#PUT
 
 end
 
-
-
+def self.getCuentaFabrica () #entrega la cuenta id de la fabrica 
+	header = crear_string("GET")
+	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read
+	resultado = JSON.parse(buffer)
+end
+end
