@@ -103,7 +103,6 @@ def self.producirStock(sKu, trxid, cAntidad)
 	autorizacion =crear_string("PUT"+sKu+trxid+cAntidad)
 	RestClient.put 'http://integracion-2016-dev.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 
-
 end
 
 def self.getCuentaFabrica () #entrega la cuenta id de la fabrica 
