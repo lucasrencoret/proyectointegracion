@@ -85,12 +85,12 @@ def self.getStockProducto(sku_request)
 end
 def self.moveStock(productoid,almacenid) #almacen de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
-	RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId =>almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 end
 
 def self.moveStockBodega(productoid,almacenid, oc, precio) #Almacén de recepción de la bodega del grupo de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
-	RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId =>almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 end
 
 def self.despacharStock(productoId, direccion, precio, oc)
@@ -99,8 +99,10 @@ def self.despacharStock(productoId, direccion, precio, oc)
 	
 end
 
-def self.producirStock()
-	#PUT
+def self.producirStock(sKu, trxid, cAntidad) 
+	autorizacion =crear_string("PUT"+sKu+trxid+cAntidad)
+	RestClient.put 'http://integracion-2016-dev.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+
 
 end
 
