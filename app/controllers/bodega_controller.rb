@@ -11,11 +11,16 @@ class BodegaController < ApplicationController
      
        cantidad = response['cantidad']
        proveedor = response['proveedor']
+       precioU = response['precioUnitario']
        sku = response['sku']
        stock = Bodega.consultar(sku)['stock']
-       
-       if (stock >= cantidad && proveedor="571262b8a980ba030058ab57")
+       preciocorrecto = false
+       if ( (sku = 20 && precioU = 1612) || (sku = 46 && precioU = 8514) || (sku = 48 && precioU = 6627) || (sku = 56 && 5052))
+        preciocorrecto =true
+       end
             
+       if (stock >= cantidad && proveedor="571262b8a980ba030058ab57" && preciocorrecto =true)
+            Oc.recepcionarOc(params[:idoc])
             render :json => { "aceptado" => true , "idoc" => params[:idoc] }
             
        else
