@@ -66,10 +66,12 @@ def self.getStockProducto(sku_request)
 	almacenes = getAlmacenes()
 
 	almacenes.each do |almacen|
-		todos_los_skus = getSkusWithStock(almacen['_id'])
-		todos_los_skus.each do |sku|
-			if (sku['_id']== sku_request)
-				stock+=sku['total']
+		if almacen['despacho'] == false
+			todos_los_skus = getSkusWithStock(almacen['_id'])
+			todos_los_skus.each do |sku|
+				if (sku['_id']== sku_request)
+					stock+=sku['total']
+				end
 			end
 		end
 		
