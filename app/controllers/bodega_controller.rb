@@ -7,9 +7,24 @@ class BodegaController < ApplicationController
         render :json => response
     end
     def recibirOc
-    
-       render :json => { "aceptado" => true , "idoc" => params[:idoc] }
-      
+       response = Oc.getOc(params[:idoc])
+       
+       cantidad = response[[:cantidad]]
+       
+       proveedor = response[:proveedor]
+       
+       sku = response[:sku]
+       
+       if (Bodega.consultar(sku) > cantidad && proveedor="571262b8a980ba030058ab57")
+            
+            render :json => { "aceptado" => true , "idoc" => params[:idoc] }
+            
+       else
+            render :json => { "aceptado" => false , "idoc" => params[:idoc] }
+       end
+       
+        
+       
    end
    def entregarCuenta
         render :json => { "idGrupo" => "571262b8a980ba030058ab57" , "idCuentaBanco" => "571262c3a980ba030058ab66" }
@@ -23,5 +38,8 @@ class BodegaController < ApplicationController
    
       render :json => { "validado" => true , "trx" => params[:idtrx] }
    end
-   def 
+   
+   def entregarDespacho 
+   
+   end
 end
