@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   get 'api/pagos/recibir/:idtrx' => 'bodega#recibirTransaccion'
   get 'api/datos' => 'bodega#entregarCuenta'
   get 'api/almacen' => 'bodega#entregarDespacho'
-  get 'api/ids/almacenId' => 'bodega#idGrupo'
+  get 'api/ids/almacenId' => 'bodega#idAlmacen'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

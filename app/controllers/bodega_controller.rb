@@ -41,7 +41,7 @@ class BodegaController < ApplicationController
    
    end
    
-   def idGrupo
+   def idAlmacen
    
        almacenes = Bodega.getAlmacenes()
 
