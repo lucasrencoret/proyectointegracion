@@ -14,7 +14,7 @@ class BodegaController < ApplicationController
        sku = response['sku']
        stock = Bodega.consultar(sku)['stock']
        
-       if (stock > cantidad && proveedor="571262b8a980ba030058ab57")
+       if (stock >= cantidad && proveedor="571262b8a980ba030058ab57")
             
             render :json => { "aceptado" => true , "idoc" => params[:idoc] }
             
@@ -22,7 +22,6 @@ class BodegaController < ApplicationController
             render :json => { "aceptado" => false , "idoc" => params[:idoc] }
        end
        
-        
        
    end
    def entregarCuenta
@@ -41,4 +40,20 @@ class BodegaController < ApplicationController
    def entregarDespacho 
    
    end
+   
+   def idGrupo
+   
+       almacenes = Bodega.getAlmacenes()
+
+	   almacenes.each do |almacen|
+	   if almacen['recepcion'] == true
+			
+            render :json =>{ "id" => almacen['_id']}
+	   end
+       end
+	    
+   
+   end
+   
+   
 end
