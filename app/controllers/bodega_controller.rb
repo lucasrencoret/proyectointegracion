@@ -7,15 +7,14 @@ class BodegaController < ApplicationController
         render :json => response
     end
     def recibirOc
-       response = Oc.getOc(params[:idoc])
+       response = Oc.getOc(params[:idoc]).first
+     
+       cantidad = response['cantidad']
+       proveedor = response['proveedor']
+       sku = response['sku']
+       stock = Bodega.consultar(sku)['stock']
        
-       cantidad = response[[:cantidad]]
-       
-       proveedor = response[:proveedor]
-       
-       sku = response[:sku]
-       
-       if (Bodega.consultar(sku) > cantidad && proveedor="571262b8a980ba030058ab57")
+       if (stock > cantidad && proveedor="571262b8a980ba030058ab57")
             
             render :json => { "aceptado" => true , "idoc" => params[:idoc] }
             
