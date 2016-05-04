@@ -15,7 +15,7 @@ class BodegaController < ApplicationController
        sku = response['sku']
        stock = Bodega.consultar(sku)['stock']
        preciocorrecto = false
-       if ( (sku = 20 && precioU = 1612) || (sku = 46 && precioU = 8514) || (sku = 48 && precioU = 6627) || (sku = 56 && 5052))
+       if ( (sku == 20 && precioU >= 1612) || (sku == 46 && precioU >= 8514) || (sku == 48 && precioU >= 6627) || (sku == 56 && precioU >= 5052))
         preciocorrecto =true
        end
             

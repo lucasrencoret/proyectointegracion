@@ -119,5 +119,13 @@ def self.getCuentaFabrica () #entrega la cuenta id de la fabrica
 	resultado = JSON.parse(buffer)
 end
 def self.abastecerCacao()
+end
+def self.pagarFabricacion(precio)
+	jsonCuenta = getCuentaFabrica.first
+	idCuentaF = jsonCuenta['cuentaId']
+	response = Banco.transferir(precio,"571262c3a980ba030058ab66",idCuentaF).first
+	response['_id']
+end
 	
 end
+
