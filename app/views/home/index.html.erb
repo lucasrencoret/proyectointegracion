@@ -21,19 +21,19 @@
 
 <ul> <font size="5"><b>ID del grupo y ID cuenta Banco: <%= link_to "integra9.ing.puc.cl/api/datos", "api/datos" %></b></font></ul>
 <ul>Entrega JSON con ID de la cuenta banco del grupo</ul>
-<ul>Retorno: {"idGrupo":string,"idCuentaBanco":string}</ul>
+<ul>Retorno: {"idGrupo":string, "idCuentaBanco":string}</ul>
 
 <ul> <font size="5"><b>ID del almacen: <%= link_to "integra9.ing.puc.cl/api/ids/almacenId", "api/ids/almacenId" %></b></font></ul>
 <ul>Entrega JSON con ID del almacén de recepción del grupo</ul>
-<ul>Retorno: {"id: string"}</ul>
+<ul>Retorno: {"id":string}</ul>
 
 <ul> <font size="5"><b>Stock Sku: <%= link_to "integra9.ing.puc.cl/api/consultar/:sku", "api/consultar/20" %></b></font></ul>
 <ul>Entrega JSON con stock total (en todos los almacenes) dado el SKU </ul>
-<ul>Retorno: {"stock":int,"sku":string}</ul>
+<ul>Retorno: {"stock":int, "sku":string}</ul>
 
 <ul> <font size="5"><b>Estado de Orden de Compra: <%= link_to "integra9.ing.puc.cl/api/oc/recibir/:idoc", "api/oc/recibir/572789c5c1ff9b0300017d44" %></b></font></ul>
 <ul>Entrega JSON informando si se aceptó o se rechazó la orden de compra </ul>
-<ul>Retorno: {"aceptado": boolean, "id": string}</ul>
+<ul>Retorno: {"aceptado":boolean, "id":string}</ul>
 
 <ul><font size="5"><b>Estado de Validación de Factura: <%= link_to "integra9.ing.puc.cl/api/facturas/recibir/:idfactura", "api/facturas/recibir/5728f9999fda6e0300474217" %></b></font></ul>
 <ul>Entrega JSON informando si dado el id de una factura, esta fue validada o no </ul>
