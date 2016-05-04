@@ -15,11 +15,11 @@ def self.obtenerTransaccion(id)
 end
 def self.obtenerCartola(fechainicio,fechafin,iD)
 	
-	RestClient.post 'http://mare.ing.puc.cl/banco/cartola', {:fechaInicio => fechainicio, :fechaFin => fechafin, :id => iD}.to_json, :content_type=> 'application/json'
-	
+	response = RestClient.post 'http://mare.ing.puc.cl/banco/cartola', {:fechaInicio => fechainicio, :fechaFin => fechafin, :id => iD}.to_json, :content_type=> 'application/json'
+	resultadoEnJson = JSON.parse(response)
 end
 def self.transferir(moNto,oRigen,dEstino)
-	RestClient.put 'http://mare.ing.puc.cl/banco/trx/' , {:origen => oRigen, :destino => dEstino, :monto => moNto}.to_json, :content_type=> 'application/json'
-	
+	response = RestClient.put 'http://mare.ing.puc.cl/banco/trx/' , {:origen => oRigen, :destino => dEstino, :monto => moNto}.to_json, :content_type=> 'application/json'
+	resultadoEnJson = JSON.parse(response)
 end
 end

@@ -42,9 +42,6 @@ class BodegaController < ApplicationController
       render :json => { "validado" => true , "idtrx" => params[:idtrx] }
    end
    
-   def entregarDespacho 
-   
-   end
    
    def idAlmacen
    

@@ -108,7 +108,9 @@ def self.despacharStock()
 end
 
 def self.producirStock(sKu, trxid, cAntidad) 
-	autorizacion =crear_string("PUT"+sKu+trxid+cAntidad)
+	stringSku = sKu.to_s
+	stringCantidad = cAntidad.to_s
+	autorizacion =crear_string("PUT"+stringSku+trxid+stringCantidad)
 	RestClient.put 'http://integracion-2016-dev.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 
 end
@@ -118,13 +120,20 @@ def self.getCuentaFabrica () #entrega la cuenta id de la fabrica
 	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
 end
-def self.abastecerCacao()
+def self.abastecerCacao(lotes)
+	loTes = lotes.to_i
+	cantidad = 60*loTes
+	precioCacao = 1280*cantidad
+	sku = 20
+	trx = pagarFabricacion(precioCacao)
+	producirStock(sku, trx, cantidad)
 end
 def self.pagarFabricacion(precio)
-	jsonCuenta = getCuentaFabrica.first
+	jsonCuenta = getCuentaFabrica()
 	idCuentaF = jsonCuenta['cuentaId']
-	response = Banco.transferir(precio,"571262c3a980ba030058ab66",idCuentaF).first
-	response['_id']
+	response = Banco.transferir(precio,"571262c3a980ba030058ab66",idCuentaF)
+	response["_id"]
+	
 end
 	
 end
