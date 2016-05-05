@@ -101,7 +101,7 @@ def self.moveStockBodega(productoid,almacenid, oc, precio) #Almac√©n de recepci√
 end
 
 def self.despacharStock(productoId, direccion, precio, oc)
-	#DELETE
+	#DELETE 
 	oc= '572789c5c1ff9b0300017d44'
 	precio= '2'
 	direccion= '571262b8a980ba030058ab54'
