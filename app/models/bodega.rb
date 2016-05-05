@@ -120,11 +120,20 @@ def self.despacharStock(productoId, direccion, precio, oc)
 end
 
 def self.despacharPedido(idoc, sku, qty, precio)
-	for i in 0..qty
-		
-		despacharStock()
-	
-	end
+	almacenes = getAlmacenes()
+	totalDespachados = 0
+	despacho = idAlmacenDespacho
+	almacenes.each do |almacen|
+		if almacen['despacho'] == true
+			todos_los_productos = getStock(almacen['_id'],sku)
+			todos_los_productos.each do |producto|
+			if(totalDespachados<qty.to_i)
+			despacharStock(producto['_id']," ", precio, idoc)
+			totalDespachados+=1
+			end
+			end
+		end
+	end	
 
 end
 
