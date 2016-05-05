@@ -80,12 +80,14 @@ def self.getStockProducto(sku_request)
 end
 def self.moveStock(productoid,almacenid) #almacen de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
-	RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	resultado = JSON.parse(response)
 end
 
 def self.moveStockBodega(productoid,almacenid, oc, precio) #Almacén de recepción de la bodega del grupo de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
-	RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	resultado = JSON.parse(response)
 end
 
 def self.despacharStock()
@@ -110,9 +112,9 @@ end
 def self.producirStock(sKu, trxid, cAntidad) 
 	stringSku = sKu.to_s
 	stringCantidad = cAntidad.to_s
-	autorizacion =crear_string("PUT"+stringSku+trxid+stringCantidad)
-	RestClient.put 'http://integracion-2016-dev.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
-
+	autorizacion =crear_string("PUT"+stringSku+stringCantidad+trxid)
+	response = RestClient.put 'http://integracion-2016-dev.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	resultado = JSON.parse(response)
 end
 
 def self.getCuentaFabrica () #entrega la cuenta id de la fabrica 
