@@ -73,6 +73,9 @@ GEM
     minitest (5.8.4)
     multi_json (1.10.1)
     mysql (2.9.1)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (3.1.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     rack (1.6.4)
@@ -158,6 +161,8 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mysql
+  net-sftp
+  net-ssh
   rails (= 4.2.6)
   rest-client
   rf-rest-open-uri
