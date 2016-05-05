@@ -27,6 +27,8 @@ gem 'ruby-hmac'
 gem 'rest-client'
 gem 'rf-rest-open-uri'
 gem 'sinatra'
+gem 'net-ssh'
+gem 'net-sftp'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
