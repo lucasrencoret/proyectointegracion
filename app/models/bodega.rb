@@ -88,8 +88,8 @@ def self.moveStockBodega(productoid,almacenid, oc, precio) #AlmacÃ©n de recepciÃ
 	RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 end
 
-def self.despacharStock()
-	#DELETEproductoId, direccion, precio, oc
+def self.despacharStock(productoId, direccion, precio, oc)
+	#DELETE
 	oc= '572789c5c1ff9b0300017d44'
 	precio= '2'
 	direccion= '571262b8a980ba030058ab54'
@@ -105,6 +105,15 @@ def self.despacharStock()
     #                       body: {:productoId => productoId, :direccion => direccion, :precio => precio, :oc => oc}.to_json, headers: {:Authorization => header, :Content_Type => 'application/json'})
 	
 	#[{"_id"=>"572789c5c1ff9b0300017d44", "created_at"=>"2016-05-02T17:09:25.369Z", "updated_at"=>"2016-05-02T17:09:25.369Z", "notas"=>"prueba", "cliente"=>"571262b8a980ba030058ab54", "proveedor"=>"571262b8a980ba030058ab57", "sku"=>"20", "estado"=>"aceptada", "fechaDespachos"=>[], "fechaEntrega"=>"2017-05-01T22:38:33.000Z", "precioUnitario"=>2, "cantidadDespachada"=>0, "cantidad"=>1, "canal"=>"b2b", "__v"=>0}]
+end
+
+def self.despacharPedido(idoc, sku, qty, precio)
+	for i in 0..qty
+		
+		despacharStock()
+	
+	end
+
 end
 
 def self.producirStock(sKu, trxid, cAntidad) 

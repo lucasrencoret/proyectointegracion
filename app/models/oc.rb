@@ -21,4 +21,6 @@ def self.crearOc(cAnal, cAntidad, skuid, pRoveedor, pRecioUnitario, nOtas, cLien
 	response = RestClient.put 'http://mare.ing.puc.cl/oc/crear', {:canal => cAnal, :cantidad => cAntidad, :sku => skuid, :proveedor => pRoveedor, :precioUnitario => pRecioUnitario, :notas => nOtas, :cliente => cLiente, :fechaEntrega => fEchaEntrega}.to_json, :content_type=> 'application/json'
 	resultadoEnJson = JSON.parse(response)
 end
+
+
 end
