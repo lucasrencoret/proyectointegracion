@@ -4,12 +4,23 @@ require 'net/sftp'
 class Ftp < ActiveRecord::Base
 @@tiempo_inicio = Time.new(2015, 5, 5, 6, 0, 0, "+03:00")
 
+
 def self.tiempo_inicio
       @@tiempo_inicio
 end
 def self.ultimo_tiempo()
       @@tiempo_inicio
 end
+
+def self.testing()
+      puts 'Salcedo es un gil'
+end
+
+def self.prueba_basedatos(orden_id)
+      ingresar_orden = Oc.new(orden_id)
+      ingresar_orden.save()
+end
+
 def self.conecta()
     host = 'mare.ing.puc.cl'
     port = '22'
@@ -55,51 +66,61 @@ def self.conecta()
                   seguir = false
                   if respuesta['stock'].to_i > orden_qty.to_i
                         #mandar a hacer
-                        orden_de_compra = Oc.getOc(orden_id)
+                        orden_de_compra = Oc.getOc(orden_id).first
+                        puts orden_de_compra
+                        puts orden_sku
+                        puts orden_id
+                        puts orden_qty
                         
                         if orden_sku == "20"
-                              if orden_de_compra['precioUnitario']> 1612 #precio sku 20
+                              if orden_de_compra['precioUnitario'].to_i> 1612 #precio sku 20
                                     seguir = true
                                     orden_precio = orden_de_compra['precioUnitario']
                               end
                               
                         end
                         if orden_sku == "46"
-                              if orden_de_compra['precioUnitario']> 8514 #precio sku 46
+                              if orden_de_compra['precioUnitario'].to_i> 8514 #precio sku 46
                                     seguir = true
                                     orden_precio = orden_de_compra['precioUnitario']
                               end
                         end
                         if orden_sku == "48"
-                              if orden_de_compra['precioUnitario']> 6627 #precio sku 48
+                              if orden_de_compra['precioUnitario'].to_i> 6627 #precio sku 48
                                     seguir = true
                                     orden_precio = orden_de_compra['precioUnitario']
                               end
                               
                         end
                         if orden_sku == "56"
-                              if orden_de_compra['precioUnitario']> 5052 #precio sku 56
+                              if orden_de_compra['precioUnitario'].to_i> 5052 #precio sku 56
                                     seguir = true
                                     orden_precio = orden_de_compra['precioUnitario']
                               end
                         end
                         
-                        
+                        seguir = true
+                        puts "voy a entrar!"
                         if seguir
+                              puts "entre!"
+                              ingresar_orden = Oc.create(:name => orden_id)
                               Oc.recepcionarOc(orden_id)
                               Bodega.moverInsumo(orden_sku, orden_qty)
-                              Bodega.emitirFactura(orden_id)
+                              Bodega.emitirFactura(orden_id.to_s)
                               Bodega.despacharPedido(orden_id, orden_sku, orden_qty, orden_precio)
+                              
                               puts "aceptar orden"
                               
+                              
+                              
                         else
-                              #Oc.rechazarOc(orden_id, "Esta por debajo del Precio")
+                              Oc.rechazarOc(orden_id, "Esta por debajo del Precio")
                               puts "rechazar Oc por precio"
                         end
                         
                   else
-                        #Oc.rechazarOc(orden_id, "No tenemos stock")
-                        puts "rechazar Oc por stock" + orden_sku.to_s + " el stock" + orden_qty.to_s
+                        Oc.rechazarOc(orden_id, "No tenemos stock")
+                        puts "rechazar Oc por stock" + orden_sku.to_s + " el stock" + orden_qty.to_s+ " con odId = "+ orden_id
                   end
                 end
                 
@@ -109,11 +130,12 @@ def self.conecta()
                 #break
             end
     end
-
-        
-    end
-
 end
+end
+        
+    
+
+
 
 
 end

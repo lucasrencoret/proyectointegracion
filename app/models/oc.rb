@@ -2,6 +2,7 @@ require 'open-uri'
 require 'rubygems'
 require 'rest-client'
 class Oc < ActiveRecord::Base
+#attr_accessible :name
 def self.getOc(id)
     buffer = open('http://mare.ing.puc.cl/oc/obtener/'+id , "Content-Type"=>"application/json").read
     resultado = JSON.parse(buffer)
