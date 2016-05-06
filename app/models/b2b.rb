@@ -88,6 +88,10 @@ def self.obtenerGrupo(grupoID)
 
 end
 
+def self.obtenerBanco(grupoID)
+	numGrupo = grupos.fetch(grupoID)[1]
+
+end
 
 
 end
