@@ -34,8 +34,15 @@ class BodegaController < ApplicationController
          
    end
    def recibirFactura
-   
+
+      Factura.pagarFactura(params[:idfactura]) 
+      p params[:idfactura]
+      p "caca"
+      buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/consultar/'+ sku.to_s , "Content-Type"=>"application/json").read
+
+
       render :json => { "validado" => true , "idfactura" => params[:idfactura] }
+
    end
     def recibirTransaccion 
    

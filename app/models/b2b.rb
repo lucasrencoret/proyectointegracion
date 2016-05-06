@@ -65,7 +65,28 @@ def self.comprarStock(sku, cantidad)
 
 end
 
+# la llave es el id del grupo, primer valor es el numero del grupo, segundo 
+@@grupos = Hash["572aac69bdb6d403005fb042" => [1,"572aac69bdb6d403005fb04e"],
+				 "572aac69bdb6d403005fb043" => [2,"572aac69bdb6d403005fb04f"],
+				 "572aac69bdb6d403005fb044" => [3,"572aac69bdb6d403005fb050"],
+				 "572aac69bdb6d403005fb045" => [4,"572aac69bdb6d403005fb051"],
+				 "572aac69bdb6d403005fb046" => [5,"572aac69bdb6d403005fb052"],
+				 "572aac69bdb6d403005fb047" => [6,"572aac69bdb6d403005fb053"],
+				 "572aac69bdb6d403005fb048" => [7,"572aac69bdb6d403005fb054"],
+				 "572aac69bdb6d403005fb049" => [8,"572aac69bdb6d403005fb056"],
+				 "572aac69bdb6d403005fb04a" => [9,"572aac69bdb6d403005fb057"],
+				 "572aac69bdb6d403005fb04b" => [10,"572aac69bdb6d403005fb058"],
+				 "572aac69bdb6d403005fb04c" => [11,"572aac69bdb6d403005fb059"],
+				 "572aac69bdb6d403005fb04d" => [12,"572aac69bdb6d403005fb05a"]]
 
+def self.grupos()
+	@@grupos
+end
+
+def self.obtenerGrupo(grupoID)
+	numGrupo = grupos.fetch(grupoID)[0]
+
+end
 
 
 
