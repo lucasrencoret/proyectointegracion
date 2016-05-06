@@ -21,18 +21,21 @@ class BodegaController < ApplicationController
        
        if (stock >= cantidad && proveedor="571262b8a980ba030058ab57" && preciocorrecto =true)
             Oc.recepcionarOc(params[:idoc])
+            Factura.emitirFactura(params[:idoc])
+            
             render :json => { "aceptado" => true , "idoc" => params[:idoc] }
+            
             
        else
             render :json => { "aceptado" => false , "idoc" => params[:idoc] }
        end
-       
-       
+            
    end
    def entregarCuenta
         render :json => { "idGrupo" => "571262b8a980ba030058ab57" , "idCuentaBanco" => "571262c3a980ba030058ab66" }
          
    end
+  
    def recibirFactura
       facturaRecibida = Factura.obtenerFactura(params[:idfactura]).first #obtengo factura
       grupoId = facturaRecibida['proveedor'] # id del grupo proveedor
@@ -44,7 +47,6 @@ class BodegaController < ApplicationController
       facturaId = params[:idfactura]
       Factura.pagarFactura(params[:idfactura]) 
       buffer = open('http://integra'+numeroGrupo.to_s+'.ing.puc.cl/api/pagos/recibir/'+idTransaccion.to_s+"?idfactura="+ facturaId.to_s , "Content-Type"=>"application/json").read
-
       render :json => { "validado" => true , "idfactura" => params[:idfactura] }
 
    end
@@ -65,7 +67,14 @@ class BodegaController < ApplicationController
 	   end
        end
 	    
-   
+   def confirmarDespacho
+   #ocRevisar = Oc.obtenerfactura(params[:idfactura]).first
+   #idoc = ocRevisar['oc']
+   #response = Oc.getOc(params[idoc]).first
+   #sku = response['sku']
+   #bodegas = Bodega.consultar(sku)
+   #cantidadEnBodega = bodegas['stock'].to_i
+   #cantidadEnOc 
    end
    
    
