@@ -10,11 +10,16 @@ Rails.application.routes.draw do
   get 'api/bodega/consultar/:sku' => 'bodega#consultar' #por si se equivocan y ponen bodega, los manda igual
   get 'api/oc/recibir/:idoc' => 'bodega#recibirOc'
   get 'api/facturas/recibir/:idfactura' => 'bodega#recibirFactura'
-  get 'api/pagos/recibir/:idtrx' => 'bodega#recibirTransaccion'
+  get 'api/pagos/recibir/:idtrx?idfactura=:idfactura' => 'bodega#recibirTransaccion'
   get 'api/datos' => 'bodega#entregarCuenta'
-  get 'api/almacen' => 'bodega#entregarDespacho'
+  get 'api/despachos/recibir/:idfactura' => 'bodega#confirmarDespacho'
   get 'api/ids/almacenId' => 'bodega#idAlmacen'
+<<<<<<< HEAD
   resources :ocs
+=======
+  
+  
+>>>>>>> f8d21e3a9b6cb6f0e35554c040b3d2bf797121f0
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

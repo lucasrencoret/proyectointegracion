@@ -46,27 +46,52 @@ def self.comprarStock(sku, cantidad)
    
 	buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/consultar/'+ sku.to_s , "Content-Type"=>"application/json").read
 	resultado = JSON.parse(buffer)
-
-	p "prueba 1"
-	orden = Oc.crearOc("b2b", cantidad.to_i, sku, "571262b8a980ba030058ab57", 11, "lll", "571262b8a980ba030058ab54", 1470495430000)
-	idoc = orden['_id']
-	#p idoc
-	p "prueba 4"
 	
 	if resultado['stock'].to_i >= cantidad.to_i
-		p "prueba 2"
+		#p "prueba 2"
 		orden = Oc.crearOc("b2b", cantidad.to_i, sku, "571262b8a980ba030058ab57", precioUnitario, "lll", idgrupo_cliente, 1470495430000)
 		idoc = orden['_id']
-		p idoc
-		p "prueba 3"
+		#p idoc
+		#p "prueba 3"
 
+		buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/oc/recibir/'+ idoc.to_s , "Content-Type"=>"application/json").read
+		resultado1 = JSON.parse(buffer)
+		if resultado1['aceptado'=false]
+		#anularOc
+		end
+			
 	end
 
 
 end
 
+# la llave es el id del grupo, primer valor es el numero del grupo, segundo 
+@@grupos = Hash["571262b8a980ba030058ab4f" => [1,"571262c3a980ba030058ab5b"],
+				 "571262b8a980ba030058ab50" => [2,"571262c3a980ba030058ab5c"],
+				 "571262b8a980ba030058ab51" => [3,"571262c3a980ba030058ab5d"],
+				 "571262b8a980ba030058ab52" => [4,"571262c3a980ba030058ab5f"],
+				 "571262b8a980ba030058ab53" => [5,"571262c3a980ba030058ab61"],
+				 "571262b8a980ba030058ab54" => [6,"571262c3a980ba030058ab62"],
+				 "571262b8a980ba030058ab55" => [7,"571262c3a980ba030058ab60"],
+				 "571262b8a980ba030058ab56" => [8,"571262c3a980ba030058ab5e"],
+				 "571262b8a980ba030058ab57" => [9,"571262c3a980ba030058ab66"],
+				 "571262b8a980ba030058ab58" => [10,"571262c3a980ba030058ab63"],
+				 "571262b8a980ba030058ab59" => [11,"571262c3a980ba030058ab64"],
+				 "571262b8a980ba030058ab5a" => [12,"571262c3a980ba030058ab65"]]
 
+def self.grupos()
+	@@grupos
+end
 
+def self.obtenerGrupo(grupoID)
+	numGrupo = grupos.fetch(grupoID)[0]
+
+end
+
+def self.obtenerBanco(grupoID)
+	numGrupo = grupos.fetch(grupoID)[1]
+
+end
 
 
 end
