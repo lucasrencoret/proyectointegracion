@@ -223,12 +223,27 @@ def self.moverInsumo(sKu,cantidad)
 		
 end
 def self.producirChocolate(lotes)
-	moverInsumo()
 	loTes = lotes.to_i
 	cantidad = 800*loTes
 	precioChoco = 2372*cantidad
 	sku = 46
 	trx = pagarFabricacion(precioChoco)
+	producirStock(sku, trx, cantidad)
+end
+def self.producirPasta(lotes)
+	loTes = lotes.to_i
+	cantidad = 800*loTes
+	precioPasta = 2372*cantidad
+	sku = 46
+	trx = pagarFabricacion(precioPasta)
+	producirStock(sku, trx, cantidad)
+end
+def self.producirHamb(lotes)
+	loTes = lotes.to_i
+	cantidad = 800*loTes
+	precioHamb = 2372*cantidad
+	sku = 46
+	trx = pagarFabricacion(precioHamb)
 	producirStock(sku, trx, cantidad)
 end
 def self.pagarFabricacion(precio)
