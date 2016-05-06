@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502053739) do
+ActiveRecord::Schema.define(version: 20160505184544) do
+
+  create_table "b2bs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "bancos", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -24,6 +29,11 @@ ActiveRecord::Schema.define(version: 20160502053739) do
   end
 
   create_table "facturas", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ftps", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

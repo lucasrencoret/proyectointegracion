@@ -66,18 +66,18 @@ def self.comprarStock(sku, cantidad)
 end
 
 # la llave es el id del grupo, primer valor es el numero del grupo, segundo 
-@@grupos = Hash["572aac69bdb6d403005fb042" => [1,"572aac69bdb6d403005fb04e"],
-				 "572aac69bdb6d403005fb043" => [2,"572aac69bdb6d403005fb04f"],
-				 "572aac69bdb6d403005fb044" => [3,"572aac69bdb6d403005fb050"],
-				 "572aac69bdb6d403005fb045" => [4,"572aac69bdb6d403005fb051"],
-				 "572aac69bdb6d403005fb046" => [5,"572aac69bdb6d403005fb052"],
-				 "572aac69bdb6d403005fb047" => [6,"572aac69bdb6d403005fb053"],
-				 "572aac69bdb6d403005fb048" => [7,"572aac69bdb6d403005fb054"],
-				 "572aac69bdb6d403005fb049" => [8,"572aac69bdb6d403005fb056"],
-				 "572aac69bdb6d403005fb04a" => [9,"572aac69bdb6d403005fb057"],
-				 "572aac69bdb6d403005fb04b" => [10,"572aac69bdb6d403005fb058"],
-				 "572aac69bdb6d403005fb04c" => [11,"572aac69bdb6d403005fb059"],
-				 "572aac69bdb6d403005fb04d" => [12,"572aac69bdb6d403005fb05a"]]
+@@grupos = Hash["571262b8a980ba030058ab4f" => [1,"571262c3a980ba030058ab5b"],
+				 "571262b8a980ba030058ab50" => [2,"571262c3a980ba030058ab5c"],
+				 "571262b8a980ba030058ab51" => [3,"571262c3a980ba030058ab5d"],
+				 "571262b8a980ba030058ab52" => [4,"571262c3a980ba030058ab5f"],
+				 "571262b8a980ba030058ab53" => [5,"571262c3a980ba030058ab61"],
+				 "571262b8a980ba030058ab54" => [6,"571262c3a980ba030058ab62"],
+				 "571262b8a980ba030058ab55" => [7,"571262c3a980ba030058ab60"],
+				 "571262b8a980ba030058ab56" => [8,"571262c3a980ba030058ab5e"],
+				 "571262b8a980ba030058ab57" => [9,"571262c3a980ba030058ab66"],
+				 "571262b8a980ba030058ab58" => [10,"571262c3a980ba030058ab63"],
+				 "571262b8a980ba030058ab59" => [11,"571262c3a980ba030058ab64"],
+				 "571262b8a980ba030058ab5a" => [12,"571262c3a980ba030058ab65"]]
 
 def self.grupos()
 	@@grupos

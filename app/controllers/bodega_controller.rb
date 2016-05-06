@@ -34,12 +34,16 @@ class BodegaController < ApplicationController
          
    end
    def recibirFactura
-
+      facturaRecibida = Factura.obtenerFactura(params[:idfactura]).first #obtengo factura
+      grupoId = facturaRecibida['proveedor'] # id del grupo proveedor
+      monto = facturaRecibida['total'] # cuanto le tengo que pagar al proveedor
+      numeroGrupo = B2b.obtenerGrupo(grupoId) # numero del grupo proveedor
+      idBanco = B2b.obtenerBanco(grupoId) # banco del grupo proveedor
+      transferencia = Banco.transferir(monto,"571262c3a980ba030058ab5e",idBanco) #le pago al proveedor
+      idTransaccion = transferencia['idtrx'] 
+      facturaId = params[:idfactura]
       Factura.pagarFactura(params[:idfactura]) 
-      p params[:idfactura]
-      p "caca"
-      buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/consultar/'+ sku.to_s , "Content-Type"=>"application/json").read
-
+      buffer = open('http://integra'+numeroGrupo.to_s+'.ing.puc.cl/api/pagos/recibir/'+idTransaccion.to_s+"?idfactura="+ facturaId.to_s , "Content-Type"=>"application/json").read
 
       render :json => { "validado" => true , "idfactura" => params[:idfactura] }
 
