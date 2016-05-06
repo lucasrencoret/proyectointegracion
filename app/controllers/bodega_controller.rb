@@ -27,7 +27,7 @@ class BodegaController < ApplicationController
             thread.new do
             buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/facturas/'+ idFac.to_s , "Content-Type"=>"application/json").read
 	        resultado = JSON.parse(buffer)
-            
+       #     ActiveRecord::Base.connection.close
             end
             render :json => { "aceptado" => true , "idoc" => params[:idoc] }
             
@@ -52,7 +52,10 @@ class BodegaController < ApplicationController
       idTransaccion = transferencia['idtrx'] 
       facturaId = params[:idfactura]
       Factura.pagarFactura(params[:idfactura]) 
+      thread.new do
       buffer = open('http://integra'+numeroGrupo.to_s+'.ing.puc.cl/api/pagos/recibir/'+idTransaccion.to_s+"?idfactura="+ facturaId.to_s , "Content-Type"=>"application/json").read
+      end
+      
       render :json => { "validado" => true , "idfactura" => params[:idfactura] }
 
    end
