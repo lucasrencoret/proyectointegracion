@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'api/datos' => 'bodega#entregarCuenta'
   get 'api/almacen' => 'bodega#entregarDespacho'
   get 'api/ids/almacenId' => 'bodega#idAlmacen'
-  
+  resources :ocs
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
