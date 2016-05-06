@@ -7,11 +7,8 @@ require 'base64'
 require 'digest'
 require 'open-uri'
 require 'rest-client'
-#<<<<<<< HEAD
-#=======
 require 'net/http'
 require 'uri'
-#>>>>>>> aeb959def17b8df93deabb0e059bd98967e6960a
 
 class Bodega < ActiveRecord::Base
 
@@ -114,19 +111,11 @@ def self.despacharPedido(idoc, sku, qty, precio)
 		if almacen['despacho'] == true
 			todos_los_productos = getStock(almacen['_id'],sku)
 			todos_los_productos.each do |producto|
-<<<<<<< HEAD
 				if(totalDespachados<qty.to_i)
 					if despacharStock(producto['_id']," ", precio, idoc) #devuelve un bool
 						totalDespachados+=1
 					end
 				end
-=======
-			if(totalDespachados<qty.to_i)
-				if despacharStock(producto['_id']," ", precio, idoc) #devuelve un bool
-					totalDespachados+=1
-				end
-			end
->>>>>>> f8d21e3a9b6cb6f0e35554c040b3d2bf797121f0
 			end
 		end
 	end	
