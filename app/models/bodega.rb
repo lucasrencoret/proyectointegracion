@@ -130,7 +130,7 @@ def self.despacharPedido(idoc, sku, qty, precio)
 			todos_los_productos = getStock(almacen['_id'],sku)
 			todos_los_productos.each do |producto|
 			if(totalDespachados<qty.to_i)
-				if despacharStock(producto['_id']," ", precio, idoc)
+				if despacharStock(producto['_id']," ", precio, idoc) #devuelve un bool
 					totalDespachados+=1
 			end
 			end

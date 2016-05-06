@@ -39,24 +39,23 @@ end
 def self.comprarStock(sku, cantidad)
 
     numGrupo = productos.fetch(sku)[0]
-    idgrupo = productos.fetch(sku)[3]
+    idgrupo_cliente = productos.fetch(sku)[3]
     precioUnitario = productos.fetch(sku)[1]
-   	b2b = "b2b"
 
     
    
 	buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/consultar/'+ sku.to_s , "Content-Type"=>"application/json").read
-	#resultado = JSON.parse(buffer)
+	resultado = JSON.parse(buffer)
 
 	p "prueba 1"
-	orden = Oc.crearOc("b2b", 20, 20, "571262b8a980ba030058ab57", 11, "lll", "571262b8a980ba030058ab54", 1470495430000)
+	orden = Oc.crearOc("b2b", cantidad.to_i, sku, "571262b8a980ba030058ab57", 11, "lll", "571262b8a980ba030058ab54", 1470495430000)
 	idoc = orden['_id']
-	p idoc
+	#p idoc
 	p "prueba 4"
-
+	
 	if resultado['stock'].to_i >= cantidad.to_i
 		p "prueba 2"
-		orden = Oc.crearOc(b2b, cantidad, sku, idgrupo, precioUnitario, "", "571262b8a980ba030058ab57", 1470495430000)
+		orden = Oc.crearOc("b2b", cantidad.to_i, sku, "571262b8a980ba030058ab57", precioUnitario, "lll", idgrupo_cliente, 1470495430000)
 		idoc = orden['_id']
 		p idoc
 		p "prueba 3"
