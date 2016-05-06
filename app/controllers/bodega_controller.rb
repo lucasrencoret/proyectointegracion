@@ -21,8 +21,14 @@ class BodegaController < ApplicationController
        
        if (stock >= cantidad && proveedor="571262b8a980ba030058ab57" && preciocorrecto =true)
             Oc.recepcionarOc(params[:idoc])
-            Factura.emitirFactura(params[:idoc])
-            
+            factura = Factura.emitirFactura(params[:idoc])
+            idFac = factura['_id']
+            numGrupo = B2b.obtenerGrupo(params[:idoc])
+            thread.new do
+            buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/facturas/'+ idFac.to_s , "Content-Type"=>"application/json").read
+	        resultado = JSON.parse(buffer)
+       #     ActiveRecord::Base.connection.close
+            end
             render :json => { "aceptado" => true , "idoc" => params[:idoc] }
             
             
@@ -46,7 +52,10 @@ class BodegaController < ApplicationController
       idTransaccion = transferencia['idtrx'] 
       facturaId = params[:idfactura]
       Factura.pagarFactura(params[:idfactura]) 
+      thread.new do
       buffer = open('http://integra'+numeroGrupo.to_s+'.ing.puc.cl/api/pagos/recibir/'+idTransaccion.to_s+"?idfactura="+ facturaId.to_s , "Content-Type"=>"application/json").read
+      end
+      
       render :json => { "validado" => true , "idfactura" => params[:idfactura] }
 
    end
