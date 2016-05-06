@@ -46,12 +46,6 @@ def self.comprarStock(sku, cantidad)
    
 	buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/consultar/'+ sku.to_s , "Content-Type"=>"application/json").read
 	resultado = JSON.parse(buffer)
-
-	p "prueba 1"
-	orden = Oc.crearOc("b2b", cantidad.to_i, sku, "571262b8a980ba030058ab57", 11, "lll", "571262b8a980ba030058ab54", 1470495430000)
-	idoc = orden['_id']
-	#p idoc
-	p "prueba 4"
 	
 	if resultado['stock'].to_i >= cantidad.to_i
 		p "prueba 2"
@@ -59,6 +53,12 @@ def self.comprarStock(sku, cantidad)
 		idoc = orden['_id']
 		p idoc
 		p "prueba 3"
+
+		buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/oc/recibir/'+ idoc.to_s , "Content-Type"=>"application/json").read
+		resultado1 = JSON.parse(buffer)
+		p resultado1
+		#if resultado1['aceptado']
+
 
 	end
 
