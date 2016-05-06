@@ -102,12 +102,13 @@ end
 
 def self.despacharStock(productoId, direccion, precio, oc)
 	#DELETE 
-	oc= '572789c5c1ff9b0300017d44'
-	precio= '2'
-	direccion= '571262b8a980ba030058ab54'
-	productId= '571262b7a980ba030058a863'
-	header = crear_string("DELETE"+productId+direccion+precio+oc)
-	#RestClient.delete 'http://integracion-2016-dev.herokuapp.com/bodega/stock', {:productId => productId, :direccion => direccion, :precio => precio, :oc => oc}.to_json, :Authorization => header, :content_type=> 'application/json'
+	#oc= '572789c5c1ff9b0300017d44'
+	#precio= '2'
+	#direccion= '571262b8a980ba030058ab54'
+	#productId= '571262b7a980ba030058a863'
+	header = crear_string("DELETE"+productoId+direccion+precio+oc)
+	respuesta = RestClient.delete 'http://integracion-2016-dev.herokuapp.com/bodega/stock', {:productId => productId, :direccion => direccion, :precio => precio, :oc => oc}.to_json, :Authorization => header, :content_type=> 'application/json'
+	
 	#request(Delete.new('http://integracion-2016-dev.herokuapp.com/bodega/stock', {:productoId => productoId, :direccion => direccion, :precio => precio, :oc => oc}.to_json, :Authorization => header, :content_type=> 'application/json'))
 	#Net::HTTP::Delete.new( 
 	#NET::HTTP::Delete("http://integracion-2016-dev.herokuapp.com/bodega/stock", { :body => 
@@ -119,6 +120,7 @@ def self.despacharStock(productoId, direccion, precio, oc)
 	#[{"_id"=>"572789c5c1ff9b0300017d44", "created_at"=>"2016-05-02T17:09:25.369Z", "updated_at"=>"2016-05-02T17:09:25.369Z", "notas"=>"prueba", "cliente"=>"571262b8a980ba030058ab54", "proveedor"=>"571262b8a980ba030058ab57", "sku"=>"20", "estado"=>"aceptada", "fechaDespachos"=>[], "fechaEntrega"=>"2017-05-01T22:38:33.000Z", "precioUnitario"=>2, "cantidadDespachada"=>0, "cantidad"=>1, "canal"=>"b2b", "__v"=>0}]
 end
 
+
 def self.despacharPedido(idoc, sku, qty, precio)
 	almacenes = getAlmacenes()
 	totalDespachados = 0
@@ -128,8 +130,8 @@ def self.despacharPedido(idoc, sku, qty, precio)
 			todos_los_productos = getStock(almacen['_id'],sku)
 			todos_los_productos.each do |producto|
 			if(totalDespachados<qty.to_i)
-			despacharStock(producto['_id']," ", precio, idoc)
-			totalDespachados+=1
+				if despacharStock(producto['_id']," ", precio, idoc)
+					totalDespachados+=1
 			end
 			end
 		end
