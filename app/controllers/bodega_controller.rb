@@ -53,31 +53,47 @@ class BodegaController < ApplicationController
       facturaId = params[:idfactura]
       Factura.pagarFactura(params[:idfactura]) 
       thread.new do
-      buffer = open('http://integra'+numeroGrupo.to_s+'.ing.puc.cl/api/pagos/recibir/'+idTransaccion.to_s+"?idfactura="+ facturaId.to_s , "Content-Type"=>"application/json").read
+      buffer = open('http://integra'+numeroGrupo.to_s+'.ing.puc.cl/api/pagos/recibir/'+idTransaccion.to_s+"/"+ facturaId.to_s , "Content-Type"=>"application/json").read
       end
       
       render :json => { "validado" => true , "idfactura" => params[:idfactura] }
 
    end
-   def recibirTransaccion 
-   
-      render :json => { "validado" => true , "idtrx" => params[:idtrx] }
-   end
-   
+
+    def recibirTransaccion 
+      facturaRecibida = Factura.obtenerFactura(params[:idfactura]).first
+      monto = facturaRecibida['total']
+      trans = Banco.obtenerTransaccion(params[:idtrx])
+      monto2 = trans['monto']
+      if monto.to_i == monto2.to_i
+      idoc = facturaRecibida['oc']
+      grupoId = facturaRecibida['cliente'] 
+      ocEnJson = Oc.getOc(idoc).first
+      sku = ocEnJson['sku']
+      qty = ocEnJson['cantidad']
+      precio = ocEnJson['precioUnitario']
+      Bodega.despacharB2b(idoc,sku,qty,precio,almacenid)
+        render :json => { "validado" => true , "idtrx" => params[:idtrx] }
+       
+      end
+
    
    def idAlmacen
    
        almacenes = Bodega.getAlmacenes()
 
 	   almacenes.each do |almacen|
-	     if almacen['recepcion'] == true
+
+	    if almacen['recepcion'] == true
 			
             render :json =>{ "id" => almacen['_id']}
-	     end
-     end
-   end
+	    end
+       end
+end    
+
 
 	    
+
    def confirmarDespacho
    #ocRevisar = Oc.obtenerfactura(params[:idfactura]).first
    #idoc = ocRevisar['oc']
