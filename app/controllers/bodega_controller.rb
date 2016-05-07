@@ -59,6 +59,7 @@ class BodegaController < ApplicationController
       render :json => { "validado" => true , "idfactura" => params[:idfactura] }
 
    end
+
     def recibirTransaccion 
       facturaRecibida = Factura.obtenerFactura(params[:idfactura]).first
       monto = facturaRecibida['total']
@@ -66,24 +67,33 @@ class BodegaController < ApplicationController
       monto2 = trans['monto']
       if monto.to_i == monto2.to_i
       idoc = facturaRecibida['oc']
-      Bodega.despacharB2b()
+      grupoId = facturaRecibida['cliente'] 
+      ocEnJson = Oc.getOc(idoc).first
+      sku = ocEnJson['sku']
+      qty = ocEnJson['cantidad']
+      precio = ocEnJson['precioUnitario']
+      Bodega.despacharB2b(idoc,sku,qty,precio,almacenid)
         render :json => { "validado" => true , "idtrx" => params[:idtrx] }
        
       end
-   end
-   
+
    
    def idAlmacen
    
        almacenes = Bodega.getAlmacenes()
 
 	   almacenes.each do |almacen|
+
 	    if almacen['recepcion'] == true
 			
             render :json =>{ "id" => almacen['_id']}
 	    end
        end
 end    
+
+
+	    
+
    def confirmarDespacho
    #ocRevisar = Oc.obtenerfactura(params[:idfactura]).first
    #idoc = ocRevisar['oc']
