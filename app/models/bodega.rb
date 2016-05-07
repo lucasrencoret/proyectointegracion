@@ -9,6 +9,7 @@ require 'open-uri'
 require 'rest-client'
 require 'net/http'
 require 'uri'
+require 'typhoeus'
 
 class Bodega < ActiveRecord::Base
 
@@ -99,9 +100,29 @@ end
 
 def self.despacharStock(productoId, direccion, precio, oc)
 	header = crear_string("DELETE"+productoId+direccion+precio+oc)
-	respuesta = RestClient.delete 'http://integracion-2016-dev.herokuapp.com/bodega/stock', {:productoId => productoId, :direccion => direccion, :precio => precio, :oc => oc}.to_json, :Authorization => header, :content_type=> 'application/json'
-end
+	#respuesta = RestClient.delete , {:productoId => productoId.to_s, :direccion => direccion.to_s, :precio => precio.to_i, :oc => oc.to_s}.to_json, :Authorization => header, :content_type=> 'application/x-www-form-urlencoded'
 
+	respuesta = Typhoeus::Request.new(
+	  'http://integracion-2016-dev.herokuapp.com/bodega/stock', 
+	  method: :delete,
+	  body: { 
+	    productoId: productoId.to_s,
+	    direccion:  direccion.to_s,
+	    precio:     precio.to_i,
+	    oc:         oc.to_s
+	  },
+	  	 headers: 
+	  	{'Content-Type' => "application/x-www-form-urlencoded",
+	  	'Authorization' => "INTEGRACION grupo9:" + header	
+	  })
+	  return respuesta
+end
+#{
+#   "productoId": "571262b7a980ba030058a83a",
+#   "direccion": "a",
+#   "precio": 2,
+#   "oc": "572bf917acbda70300e27357"
+#} oc 572e6eb218b3850300a6fcc5 product id = 572d367ab147af0300d2a8ed
 
 def self.despacharPedido(idoc, sku, qty, precio)
 	almacenes = getAlmacenes()
@@ -112,7 +133,9 @@ def self.despacharPedido(idoc, sku, qty, precio)
 			todos_los_productos = getStock(almacen['_id'],sku)
 			todos_los_productos.each do |producto|
 				if(totalDespachados<qty.to_i)
-					if despacharStock(producto['_id']," ", precio, idoc) #devuelve un bool
+					resultado_de_delete = despacharStock(producto['_id'],"a", precio, idoc).run
+					if  resultado_de_delete['despachado']#poner el resultado del delete, la variable del bool
+						puts "despachando"
 						totalDespachados+=1
 					end
 				end

@@ -63,27 +63,29 @@
 
 
 
-<ul> <font size="5"><b><a href="http://integra9.ing.puc.cl/api/ids/grupo" style="color: #4B610B; text-decoration: none">&gt;ID del Grupo</a></b></font></ul>
-<ul>Entrega JSON con ID del grupo</ul>
-
-<ul> <font size="5"><b><a href="http://integra9.ing.puc.cl/api/ids/banco" style="color: #4B610B; text-decoration: none">&gt;ID cuenta Banco</a></b></font></ul>
+<ul> <font size="5"><b> >ID del grupo y ID cuenta Banco: <%= link_to "integra9.ing.puc.cl/api/datos", "api/datos\n" %></b></font></ul>
 <ul>Entrega JSON con ID de la cuenta banco del grupo</ul>
+<ul>Retorno: {"idGrupo":string, "idCuentaBanco":string}</ul>
 
-<ul> <font size="5"><b><a href="http://integra9.ing.puc.cl/api/ids/almacenId" style="color: #4B610B; text-decoration: none">&gt;ID del almacén</a></b></font></ul>
+<ul> <font size="5"><b> >ID del almacen: <%= link_to "integra9.ing.puc.cl/api/ids/almacenId", "api/ids/almacenId\n" %></b></font></ul>
 <ul>Entrega JSON con ID del almacén de recepción del grupo</ul>
+<ul>Retorno: {"id":string}</ul>
 
-<ul> <font size="5"><b><a href="http://integra9.ing.puc.cl/api/consultar/.:sku" style="color: #4B610B; text-decoration: none">&gt;Stock SKU</a></b></font></ul>
+<ul> <font size="5"><b> >Stock Sku: <%= link_to "integra9.ing.puc.cl/api/consultar/:sku", "api/consultar/20\n" %></b></font></ul>
 <ul>Entrega JSON con stock total (en todos los almacenes) dado el SKU </ul>
+<ul>Retorno: {"stock":int, "sku":string}</ul>
 
-<ul> <font size="5"><b><a href="http://integra9.ing.puc.cl/api/oc/recibir/.:idoc" style="color: #4B610B; text-decoration: none">&gt;Estado de Orden de Compra</a></b></font></ul>
-
+<ul> <font size="5"><b> >Estado de Orden de Compra: <%= link_to "integra9.ing.puc.cl/api/oc/recibir/:idoc\n", "api/oc/recibir/572789c5c1ff9b0300017d44" %></b></font></ul>
 <ul>Entrega JSON informando si se aceptó o se rechazó la orden de compra </ul>
+<ul>Retorno: {"aceptado":boolean, "id":string}</ul>
 
-<ul><font size="5"><b><a href="http://integra9.ing.puc.cl/api/facturas/recibir/.:idfactura" style="color: #4B610B; text-decoration: none">&gt;Estado Validación Factura</a></b></font></ul>
+<ul><font size="5"><b> >Estado de Validación de Factura: <%= link_to "integra9.ing.puc.cl/api/facturas/recibir/:idfactura", "api/facturas/recibir/5728f9999fda6e0300474217\n" %></b></font></ul>
 <ul>Entrega JSON informando si dado el id de una factura, esta fue validada o no </ul>
+<ul>Retorno: {"validado":boolean,"idfactura":string}</ul>
 
-<ul> <font size="5"><b><a href="http://integra9.ing.puc.cl/api/oc/recibir/.:idoc" style="color: #4B610B; text-decoration: none">&gt;Estado Aceptación Orden de Compra</a></b></font></ul>
-<ul>Entrega JSON informando si dado el id de una factura, esta fue validada o no </ul>
+<ul><font size="5"><b> >Enviar Transacción: <%= link_to "integra9.ing.puc.cl/api/pagos/recibir/:idtrx", "api/pagos/recibir/572a5e55e3648d030036a603\n" %></b></font></ul>
+<ul>Envía transacción a Empresa </ul>
+<ul>Retorno: {"validado":boolean,"idtrx":string}</ul>
 
 </body>
 </html>
