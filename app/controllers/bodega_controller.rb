@@ -62,21 +62,24 @@ class BodegaController < ApplicationController
 
     def recibirTransaccion 
       facturaRecibida = Factura.obtenerFactura(params[:idfactura]).first
-      monto = facturaRecibida['total']
+      monto1 = facturaRecibida['total']
       trans = Banco.obtenerTransaccion(params[:idtrx])
       monto2 = trans['monto']
-      if monto.to_i == monto2.to_i
-      idoc = facturaRecibida['oc']
-      grupoId = facturaRecibida['cliente'] 
-      ocEnJson = Oc.getOc(idoc).first
-      sku = ocEnJson['sku']
-      qty = ocEnJson['cantidad']
-      precio = ocEnJson['precioUnitario']
-      Bodega.despacharB2b(idoc,sku,qty,precio,almacenid)
-        render :json => { "validado" => true , "idtrx" => params[:idtrx] }
-       
-      end
+    #  if monto.to_i == monto2.to_i
+    #  idoc = facturaRecibida['oc']
+    #  grupoId = facturaRecibida['cliente'] 
+    #  ocEnJson = Oc.getOc(idoc).first
+    #  sku = ocEnJson['sku']
+    #  qty = ocEnJson['cantidad']
+    #  precio = ocEnJson['precioUnitario']
+    #  almacenid =  "571262aaa980ba030058a3b0"
 
+    #  Bodega.despacharB2b(idoc,sku,qty,precio,almacenid)
+        render :json => { "validado" => true , "idtrx" => params[:idtrx], "idfactura" =>params[:idfactura] }
+     # else 
+     # render :json => { "validado" => false , "idtrx" => params[:idtrx] }
+     # end
+end
    
    def idAlmacen
    

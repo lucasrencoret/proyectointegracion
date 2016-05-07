@@ -135,6 +135,7 @@ def self.despacharPedido(idoc, sku, qty, precio)
 			end
 		end
 	end	
+	end
 
 end
 
