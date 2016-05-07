@@ -119,23 +119,24 @@ def self.despacharPedido(idoc, sku, qty, precio)
 			end
 		end
 	end	
+end
 	def self.despacharB2b(idoc, sku, qty, precio,almacenid)
 	almacenes = getAlmacenes()
 	totalDespachados = 0
-	despacho = idAlmacenDespacho
+	
 	almacenes.each do |almacen|
 		if almacen['despacho'] == true
 			todos_los_productos = getStock(almacen['_id'],sku)
 			todos_los_productos.each do |producto|
 				if(totalDespachados<qty.to_i)
-					if moveStockBodega(producto['_id'],almacenid.to_s, precio, idoc) #devuelve un bool
+						moveStockBodega(producto['_id'],almacenid.to_s, idoc,precio)	
 						totalDespachados+=1
-					end
+					
 				end
 			end
 		end
 	end	
-	end
+	
 
 end
 

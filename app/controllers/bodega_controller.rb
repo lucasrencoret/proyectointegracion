@@ -63,22 +63,22 @@ class BodegaController < ApplicationController
     def recibirTransaccion 
       facturaRecibida = Factura.obtenerFactura(params[:idfactura]).first
       monto1 = facturaRecibida['total']
-      trans = Banco.obtenerTransaccion(params[:idtrx])
+      trans = Banco.obtenerTransaccion(params[:idtrx]).first
       monto2 = trans['monto']
-    #  if monto.to_i == monto2.to_i
-    #  idoc = facturaRecibida['oc']
-    #  grupoId = facturaRecibida['cliente'] 
-    #  ocEnJson = Oc.getOc(idoc).first
-    #  sku = ocEnJson['sku']
-    #  qty = ocEnJson['cantidad']
-    #  precio = ocEnJson['precioUnitario']
-    #  almacenid =  "571262aaa980ba030058a3b0"
-
-    #  Bodega.despacharB2b(idoc,sku,qty,precio,almacenid)
+      if monto1.to_i == monto2.to_i
+      idoc = facturaRecibida['oc']
+      grupoId = facturaRecibida['cliente'] 
+      ocEnJson = Oc.getOc(idoc).first
+      sku = ocEnJson['sku']
+      qty = ocEnJson['cantidad']
+      precio = ocEnJson['precioUnitario']
+      almacenid =  "571262aaa980ba030058a3b0"
+      Bodega.moverInsumo(sku,qty)
+      Bodega.despacharB2b(idoc,sku,qty,precio,almacenid)
         render :json => { "validado" => true , "idtrx" => params[:idtrx], "idfactura" =>params[:idfactura] }
-     # else 
-     # render :json => { "validado" => false , "idtrx" => params[:idtrx] }
-     # end
+      else 
+      render :json => { "validado" => false , "idtrx" => params[:idtrx] }
+      end
 end
    
    def idAlmacen
@@ -98,13 +98,7 @@ end
 	    
 
    def confirmarDespacho
-   #ocRevisar = Oc.obtenerfactura(params[:idfactura]).first
-   #idoc = ocRevisar['oc']
-   #response = Oc.getOc(params[idoc]).first
-   #sku = response['sku']
-   #bodegas = Bodega.consultar(sku)
-   #cantidadEnBodega = bodegas['stock'].to_i
-   #cantidadEnOc 
+  render :json =>{ "validado" => true}
    end
    
    
