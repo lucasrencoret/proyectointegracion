@@ -2,7 +2,7 @@ require 'net/ftp'
 require 'net/ssh'
 require 'net/sftp'
 class Ftp < ActiveRecord::Base
-@@tiempo_inicio = Time.new(2015, 5, 5, 6, 0, 0, "+03:00")
+@@tiempo_inicio = Time.new(2016, 5, 5, 6, 0, 0, "+03:00")
 
 
 def self.tiempo_inicio
@@ -17,8 +17,16 @@ def self.testing()
 end
 
 def self.prueba_basedatos(orden_id)
-      ingresar_orden = Oc.new(orden_id)
-      ingresar_orden.save()
+      host = 'mare.ing.puc.cl'
+      port = '22'
+      user = 'integra9'
+      password = 'cdFybj2t'
+      Net::SFTP.start(host,user, :password=>password) do |sftp|
+            sftp.dir.foreach("/pedidos") do |entry|
+                  nombre_split = entry.longname
+                  puts nombre_split
+            end
+      end
 end
 
 def self.conecta()
@@ -27,6 +35,7 @@ def self.conecta()
     user = 'integra9'
     password = 'cdFybj2t'
     
+    tiempo_mayor_local = tiempo_inicio
     
     #upload a file or directory to the remote host
     #Rails.logger.info("Creating SFTP connection")
@@ -36,6 +45,7 @@ def self.conecta()
     Net::SFTP.start(host,user, :password=>password) do |sftp|
     
     sftp.dir.foreach("/pedidos") do |entry|
+            
             #puts entry.longname
             if entry.file?()
                 #sftp.download!("/pedidos/"+entry.name, "/Users/lucasrencoret/Desktop/test/"+entry.name)
@@ -51,7 +61,10 @@ def self.conecta()
                 tiempo = Time.new('2016', mes, dia, hora, minuto, '0', "+00:00")
                 #Time.new(2002, 10, 31, 2, 2, 2, "+00:00")
                 if tiempo > tiempo_inicio
-                  @@tiempo_inicio = tiempo
+                  if tiempo > tiempo_mayor_local
+                        tiempo_mayor_local = tiempo
+                  end
+                  
                   #bajar la info
                   data = sftp.download!("/pedidos/"+entry.name)
                   #puts data
@@ -104,9 +117,12 @@ def self.conecta()
                         if seguir
                               puts "entre!"
                               ingresar_orden = Oc.create(:name => orden_id)
+                              puts "ingresado en Base de datos"
                               Oc.recepcionarOc(orden_id)
                               Bodega.moverInsumo(orden_sku, orden_qty)
-                              Bodega.emitirFactura(orden_id.to_s)
+                              puts "se movieron los insumos"
+                              Factura.emitirFactura(orden_id.to_s)
+                              puts "emitida la factura"
                               Bodega.despacharPedido(orden_id, orden_sku, orden_qty, orden_precio)
                               
                               puts "aceptar orden"
@@ -129,6 +145,10 @@ def self.conecta()
                 
                 #break
             end
+          
+    end
+    if tiempo_mayor_local > tiempo_inicio
+      tiempo_inicio = tiempo_mayor_local
     end
 end
 end
