@@ -65,19 +65,19 @@ def self.comprarStock(sku, cantidad)
 
 end
 
-# la llave es el id del grupo, primer valor es el numero del grupo, segundo 
-@@grupos = Hash["571262b8a980ba030058ab4f" => [1,"571262c3a980ba030058ab5b"],
-				 "571262b8a980ba030058ab50" => [2,"571262c3a980ba030058ab5c"],
-				 "571262b8a980ba030058ab51" => [3,"571262c3a980ba030058ab5d"],
-				 "571262b8a980ba030058ab52" => [4,"571262c3a980ba030058ab5f"],
-				 "571262b8a980ba030058ab53" => [5,"571262c3a980ba030058ab61"],
-				 "571262b8a980ba030058ab54" => [6,"571262c3a980ba030058ab62"],
-				 "571262b8a980ba030058ab55" => [7,"571262c3a980ba030058ab60"],
-				 "571262b8a980ba030058ab56" => [8,"571262c3a980ba030058ab5e"],
-				 "571262b8a980ba030058ab57" => [9,"571262c3a980ba030058ab66"],
-				 "571262b8a980ba030058ab58" => [10,"571262c3a980ba030058ab63"],
-				 "571262b8a980ba030058ab59" => [11,"571262c3a980ba030058ab64"],
-				 "571262b8a980ba030058ab5a" => [12,"571262c3a980ba030058ab65"]]
+# la llave es el id del grupo, primer valor es el numero del grupo, segundo valor es cuenta de banco, tercer valor es almacen de recepcion 
+@@grupos = Hash["571262b8a980ba030058ab4f" => [1,"571262c3a980ba030058ab5b","571262aaa980ba030058a147"],
+				 "571262b8a980ba030058ab50" => [2,"571262c3a980ba030058ab5c","571262aaa980ba030058a14e"],
+				 "571262b8a980ba030058ab51" => [3,"571262c3a980ba030058ab5d","571262aaa980ba030058a1f1"],
+				 "571262b8a980ba030058ab52" => [4,"571262c3a980ba030058ab5f","571262aaa980ba030058a240"],
+				 "571262b8a980ba030058ab53" => [5,"571262c3a980ba030058ab61","571262aaa980ba030058a244"],
+				 "571262b8a980ba030058ab54" => [6,"571262c3a980ba030058ab62",""],
+				 "571262b8a980ba030058ab55" => [7,"571262c3a980ba030058ab60",""],
+				 "571262b8a980ba030058ab56" => [8,"571262c3a980ba030058ab5e","571262aaa980ba030058a31e"],
+				 "571262b8a980ba030058ab57" => [9,"571262c3a980ba030058ab66","571262aaa980ba030058a3b0"],
+				 "571262b8a980ba030058ab58" => [10,"571262c3a980ba030058ab63",""],
+				 "571262b8a980ba030058ab59" => [11,"571262c3a980ba030058ab64","571262aaa980ba030058a488"],
+				 "571262b8a980ba030058ab5a" => [12,"571262c3a980ba030058ab65","571262aba980ba030058a5c6"]]
 
 def self.grupos()
 	@@grupos
@@ -90,6 +90,11 @@ end
 
 def self.obtenerBanco(grupoID)
 	numGrupo = grupos.fetch(grupoID)[1]
+
+end
+
+def self.obtenerRecepcion(grupoID)
+	numGrupo = grupos.fetch(grupoID)[2]
 
 end
 
