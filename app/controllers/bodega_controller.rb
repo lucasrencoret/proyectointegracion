@@ -59,7 +59,7 @@ class BodegaController < ApplicationController
       render :json => { "validado" => true , "idfactura" => params[:idfactura] }
 
    end
-    def recibirTransaccion 
+   def recibirTransaccion 
    
       render :json => { "validado" => true , "idtrx" => params[:idtrx] }
    end
@@ -70,11 +70,13 @@ class BodegaController < ApplicationController
        almacenes = Bodega.getAlmacenes()
 
 	   almacenes.each do |almacen|
-	   if almacen['recepcion'] == true
+	     if almacen['recepcion'] == true
 			
             render :json =>{ "id" => almacen['_id']}
-	   end
-       end
+	     end
+     end
+   end
+
 	    
    def confirmarDespacho
    #ocRevisar = Oc.obtenerfactura(params[:idfactura]).first
