@@ -29,7 +29,6 @@ gem 'rf-rest-open-uri'
 gem 'sinatra'
 gem 'net-ssh'
 gem 'net-sftp'
-gem 'capistrano'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
