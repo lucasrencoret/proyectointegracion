@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   get 'api/despachos/recibir/:idfactura' => 'bodega#confirmarDespacho'
   get 'api/ids/almacenId' => 'bodega#idAlmacen'
 
+<<<<<<< HEAD
   resources :ocs
+=======
+  #resources :ocs
+>>>>>>> 5db880490935a7efc4200939dbb9d8cd8df25e50
 
   
   

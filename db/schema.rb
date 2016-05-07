@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5db880490935a7efc4200939dbb9d8cd8df25e50
 ActiveRecord::Schema.define(version: 20160506230523) do
 
   create_table "b2bs", force: :cascade do |t|
@@ -40,11 +43,14 @@ ActiveRecord::Schema.define(version: 20160506230523) do
   end
 
   create_table "ocs", force: :cascade do |t|
+<<<<<<< HEAD
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "ocs", force: :cascade do |t|
+=======
+>>>>>>> 5db880490935a7efc4200939dbb9d8cd8df25e50
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "name",       limit: 255
