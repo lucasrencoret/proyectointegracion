@@ -35,14 +35,11 @@ ActiveRecord::Schema.define(version: 20160506230523) do
   end
 
   create_table "ftps", force: :cascade do |t|
-<<<<<<< HEAD
-=======
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "ocs", force: :cascade do |t|
->>>>>>> f8d21e3a9b6cb6f0e35554c040b3d2bf797121f0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
