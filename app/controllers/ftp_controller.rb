@@ -1,0 +1,4 @@
+
+class FtpController < ApplicationController
+
+end
