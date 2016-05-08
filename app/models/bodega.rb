@@ -374,3 +374,46 @@ def self.logicaHacerHamb()
 	end
 end
 
+def self.vaciarRecepcion()
+
+    recepcion = "571262aaa980ba030058a3b0"
+    general1 = "571262aaa980ba030058a3b2"
+    general2 = "571262aaa980ba030058a40a"
+    pulmon = "571262aaa980ba030058a40b"    
+
+    productosRecepcion = getSkusWithStock(recepcion)
+    p "1"
+    if (productosRecepcion.size > 0)
+        productosRecepcion.each do |tipoProducto|
+            p "2"
+            #cantidadProducto = tipoProducto['total'] 
+              skuProducto = tipoProducto['_id']
+              productoSKU = getStock(recepcion, skuProducto)
+              p "3"
+              productoSKU.each do |productito|
+                  p "4"
+                  productoMovido = false
+                  almacenes = getAlmacenes
+                  almacenes.each do |almacen|
+                      p "5"
+                      if ((almacen['_id'] = general1) and (almacen['totalSpace'] > almacen['usedSpace'])and (!productoMovido))
+                              moveStock(productito['_id'],general1)
+                              productoMovido = true
+                              p "6"
+                              #vaciarRecepcion()
+                      elsif ((almacen['_id'] = general2) and (almacen['totalSpace'] > almacen['usedSpace'])and (!productoMovido))
+                              moveStock(productito['_id'],general2)
+                              productoMovido = true
+                              #vaciarRecepcion()
+                      elsif ((almacen['_id'] = pulmon) and (almacen['totalSpace'] > almacen['usedSpace'])and (!productoMovido))
+                          moveStock(productito['_id'],pulmon)
+                          productoMovido = true
+                          #vaciarRecepcion()
+                      end
+                      
+                  end    
+              end    
+        end
+    end
+        
+end
