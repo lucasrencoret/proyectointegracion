@@ -39,9 +39,9 @@ def self.idAlmacenDespacho ()
        almacenes = Bodega.getAlmacenes()
 
 	   almacenes.each do |almacen|
-	   if almacen['despacho'] == true	
+	   	if almacen['despacho'] == true	
             response = almacen["_id"]
-	   end
+	   	end
 	   end
 	   response
 end
@@ -136,22 +136,22 @@ def self.despacharPedido(idoc, sku, qty, precio)
 		end
 	end	
 end
-	def self.despacharB2b(idoc, sku, qty, precio,almacenid)
-	almacenes = getAlmacenes()
-	totalDespachados = 0
-	
-	almacenes.each do |almacen|
-		if almacen['despacho'] == true
-			todos_los_productos = getStock(almacen['_id'],sku)
-			todos_los_productos.each do |producto|
-				if(totalDespachados<qty.to_i)
-						moveStockBodega(producto['_id'],almacenid.to_s, idoc,precio)	
-						totalDespachados+=1
-					
-				end
+def self.despacharB2b(idoc, sku, qty, precio,almacenid)
+almacenes = getAlmacenes()
+totalDespachados = 0
+
+almacenes.each do |almacen|
+	if almacen['despacho'] == true
+		todos_los_productos = getStock(almacen['_id'],sku)
+		todos_los_productos.each do |producto|
+			if(totalDespachados<qty.to_i)
+					moveStockBodega(producto['_id'],almacenid.to_s, idoc,precio)	
+					totalDespachados+=1
+				
 			end
 		end
-	end	
+	end
+end	
 	
 
 end
@@ -244,10 +244,10 @@ def self.moverInsumo(sKu,cantidad)
 		if almacen['despacho'] == false
 			todos_los_productos = getStock(almacen['_id'],sKu)
 			todos_los_productos.each do |producto|
-			if(totalMovidos<cantidad.to_i)
-			moveStock(producto['_id'],despacho)
-			totalMovidos+=1
-			end
+				if(totalMovidos<cantidad.to_i)
+					moveStock(producto['_id'],despacho)
+					totalMovidos+=1
+				end
 			end
 		end
 	end	
@@ -408,5 +408,5 @@ def self.vaciarRecepcion()
               end    
         end
     end
-        
+  end
 end
