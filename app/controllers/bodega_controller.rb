@@ -28,6 +28,7 @@ class BodegaController < ApplicationController
             numGrupo = B2b.obtenerGrupo(cliente)
             ingresar_orden = Oc.create(:name => params[:idoc])
             Thread.new do
+            sleep(50)
             buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/facturas/'+ idFac.to_s , "Content-Type"=>"application/json").read
 	        resultado = JSON.parse(buffer)
              print resultado
@@ -56,6 +57,7 @@ class BodegaController < ApplicationController
       facturaId = params[:idfactura]
       Factura.pagarFactura(params[:idfactura]) 
       Thread.new do
+      sleep(50)
       buffer = open('http://integra'+numeroGrupo.to_s+'.ing.puc.cl/api/pagos/recibir/'+idTransaccion.to_s+"?idfactura="+ facturaId.to_s , "Content-Type"=>"application/json").read
       end
       
@@ -78,6 +80,12 @@ class BodegaController < ApplicationController
       almacenid =  B2b.obtenerRecepcion(grupoId)
       Bodega.moverInsumo(sku,qty)
       Bodega.despacharB2b(idoc,sku,qty,precio,almacenid)
+      Thread.new do
+      sleep(50)
+      numeroGrupo = B2b.obtenerGrupo(grupoId)
+      buffer = open('http://integra'+numeroGrupo.to_s+'.ing.puc.cl/api/despachos/recibir/'+facturaId.to_s , "Content-Type"=>"application/json").read
+      
+      end
         render :json => { "validado" => true , "idtrx" => params[:idtrx] }
       else 
       render :json => { "validado" => false , "idtrx" => params[:idtrx] }
