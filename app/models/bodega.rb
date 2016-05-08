@@ -18,7 +18,7 @@ def self.encrypt(texto)
 	key = texto
 	data = 'WqhY79mm3N4ph6'
 	OpenSSL::HMAC.digest('SHA1',data,key)
-	Base64.encode64 OpenSSL::HMAC.digest('SHA1',data,key)
+	Base64.strict_encode64 OpenSSL::HMAC.digest('SHA1',data,key)
 
 
 end
@@ -101,20 +101,11 @@ end
 def self.despacharStock(productoId, direccion, precio, oc)
 	header = crear_string("DELETE"+productoId+direccion+precio+oc)
 	#respuesta = RestClient.delete , {:productoId => productoId.to_s, :direccion => direccion.to_s, :precio => precio.to_i, :oc => oc.to_s}.to_json, :Authorization => header, :content_type=> 'application/x-www-form-urlencoded'
-
-	respuesta = Typhoeus::Request.new(
-	  'http://integracion-2016-dev.herokuapp.com/bodega/stock', 
-	  method: :delete,
-	  body: { 
-	    productoId: productoId.to_s,
-	    direccion:  direccion.to_s,
-	    precio:     precio.to_i,
-	    oc:         oc.to_s
-	  },
-	  	 headers: 
-	  	{'Content-Type' => "application/x-www-form-urlencoded",
-	  	'Authorization' => "INTEGRACION grupo9:" + header	
-	  })
+	puts header
+	respuesta = Typhoeus::Request.new('http://integracion-2016-dev.herokuapp.com/bodega/stock', 
+	method: :delete, 
+	body: {productoId: productoId.to_s, direccion:  direccion.to_s, precio: precio.to_i, oc: oc.to_s}, 
+	headers: {'Content-Type' => "application/x-www-form-urlencoded",'Authorization' => header})
 	  return respuesta
 end
 #{
@@ -134,7 +125,9 @@ def self.despacharPedido(idoc, sku, qty, precio)
 			todos_los_productos.each do |producto|
 				if(totalDespachados<qty.to_i)
 					resultado_de_delete = despacharStock(producto['_id'],"a", precio, idoc).run
-					if  resultado_de_delete['despachado']#poner el resultado del delete, la variable del bool
+					respuesta = JSON.parse(resultado_de_delete.response_body)
+					
+					if  respuesta['despachado']#poner el resultado del delete, la variable del bool
 						puts "despachando"
 						totalDespachados+=1
 					end
