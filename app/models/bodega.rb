@@ -317,11 +317,11 @@ def self.logicaAbastecerChocolate()
 	response = revisarMaterialesChocolate("1")
 		if response['azucar']== false 
 		B2b.comprarStock("25","269")
-		print "comprando"
+		
 		end
 		if response['leche'] == false 	
 		B2b.comprarStock("7","251")
-		print "comprando"
+		
 		end
 	end
 end

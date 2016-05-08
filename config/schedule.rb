@@ -16,6 +16,26 @@
  every 4.minutes do
    runner "Ftp.conecta()", :environment => "development", :output => 'log/check_status_update.log'
  end
- 
+  every 250.minutos do
+   runner "Bodega.logicaCacaos", :environment => "development"
+ end
+ every 90.minutes do
+   runner "Bodega.logicaAbastecerChocolate", :environment => "development"
+ end
+ every 150.minutes do
+   runner "Bodega.logicaAbastecerPasta", :environment => "development"
+ end
+ every 121.minutes do
+   runner "Bodega.logicaAbastecerHamb", :environment => "development"
+ end
+ every 20.minutes do
+   runner "Bodega.logicaHacerChocolate", :environment => "development"
+ end
+  every 20.minutes do
+   runner "Bodega.logicaHacerPasta", :environment => "development"
+ end
+  every 20.minutes do
+   runner "Bodega.logicaHacerHamb", :environment => "development"
+ end
 
 # Learn more: http://github.com/javan/whenever
