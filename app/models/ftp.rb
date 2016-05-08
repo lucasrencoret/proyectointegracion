@@ -16,15 +16,14 @@ def self.testing()
       puts 'Salcedo es un gil'
 end
 
-def self.prueba_basedatos(orden_id)
+def self.prueba_basedatos()
       host = 'mare.ing.puc.cl'
       port = '22'
       user = 'integra9'
       password = 'cdFybj2t'
       Net::SFTP.start(host,user, :password=>password) do |sftp|
             sftp.dir.foreach("/pedidos") do |entry|
-                  nombre_split = entry.longname
-                  puts nombre_split
+                  sftp.download!("/pedidos/"+entry.name, "/Users/lucasrencoret/Desktop/test/"+entry.name)
             end
       end
 end
@@ -65,8 +64,9 @@ def self.conecta()
                         tiempo_mayor_local = tiempo
                   end
                   
-                  #bajar la info
-                  data = sftp.download!("/pedidos/"+entry.name)
+                  #bajar la info"/Users/lucasrencoret/Desktop/test/"+entry.name
+                  data = File.read("/Users/lucasrencoret/Desktop/test/"+entry.name)
+                  #data = sftp.download!("/pedidos/"+entry.name)
                   #puts data
                   doc = Nokogiri::XML(data)
                   thing = doc.at_xpath('order')
@@ -80,10 +80,10 @@ def self.conecta()
                   if respuesta['stock'].to_i > orden_qty.to_i
                         #mandar a hacer
                         orden_de_compra = Oc.getOc(orden_id).first
-                        puts orden_de_compra
-                        puts orden_sku
-                        puts orden_id
-                        puts orden_qty
+                        #puts orden_de_compra
+                        #puts orden_sku
+                        #puts orden_id
+                        #puts orden_qty
                         
                         if orden_sku == "20"
                               if orden_de_compra['precioUnitario'].to_i> 1612 #precio sku 20
@@ -113,6 +113,7 @@ def self.conecta()
                         end
                         
                         #seguir = true
+                        #orden_precio = orden_de_compra['precioUnitario']
                         #puts "voy a entrar!"
                         if seguir
                               #puts "entre!"
@@ -123,7 +124,7 @@ def self.conecta()
                               #puts "se movieron los insumos"
                               Factura.emitirFactura(orden_id.to_s)
                               #puts "emitida la factura"
-                              Bodega.despacharPedido(orden_id, orden_sku, orden_qty, orden_precio)
+                              Bodega.despacharPedido(orden_id, orden_sku, orden_qty, orden_precio.to_s)
                               
                               #puts "aceptar orden"
                               
