@@ -24,12 +24,13 @@ class BodegaController < ApplicationController
             Oc.recepcionarOc(params[:idoc])
             factura = Factura.emitirFactura(params[:idoc])
             idFac = factura['_id']
-            
+  
             numGrupo = B2b.obtenerGrupo(cliente)
+            ingresar_orden = Oc.create(:name => params[:idoc])
             Thread.new do
             buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/facturas/'+ idFac.to_s , "Content-Type"=>"application/json").read
 	        resultado = JSON.parse(buffer)
-       
+             print resultado
             end
             render :json => { "aceptado" => true , "idoc" => params[:idoc] }
             

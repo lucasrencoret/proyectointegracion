@@ -253,26 +253,34 @@ def self.moverInsumo(sKu,cantidad)
 	end	
 		
 end
-def self.producirChocolate(lotes)
-	loTes = lotes.to_i
-	cantidad = 800*loTes
+def self.producirChocolate()
+	moverInsumo(20,296)
+	moverInsumo(25,269)
+	moverInsumo(7,251)
+	cantidad = 800
 	precioChoco = 2372*cantidad
 	sku = 46
 	trx = pagarFabricacion(precioChoco)
 	producirStock(sku, trx, cantidad)
 end
-def self.producirPasta(lotes)
+def self.producirPasta()
+	moverInsumo(19,160)
+	moverInsumo(26,172)
+	moverInsumo(2,155)
 	loTes = lotes.to_i
-	cantidad = 800*loTes
-	precioPasta = 2372*cantidad
+	cantidad = 500
+	precioPasta = 1652*cantidad
 	sku = 46
 	trx = pagarFabricacion(precioPasta)
 	producirStock(sku, trx, cantidad)
 end
-def self.producirHamb(lotes)
+def self.producirHamb()
+	moverInsumo(1,935)
+	moverInsumo(26,65)
+	
 	loTes = lotes.to_i
-	cantidad = 800*loTes
-	precioHamb = 2372*cantidad
+	cantidad = 620
+	precioHamb = 2271*cantidad
 	sku = 46
 	trx = pagarFabricacion(precioHamb)
 	producirStock(sku, trx, cantidad)
@@ -285,6 +293,77 @@ def self.pagarFabricacion(precio)
 	
 end
 
+def self.logicaCacaos()
+	cacao = getStockProducto("20")
+	if cacao.to_i <= 4000
+	lotes1 = 4500 - cacao.to_i
 	
+	lotes = lotes1/60 
+	
+	abastecerCacao(lotes)
+	end
+	
+end
+def self.logicaAbastecerChocolate()
+	chocolate = getStockProducto("46")
+	if chocolate.to_i <= 4000
+	response = revisarMaterialesChocolate("1")
+		if response['azucar']== false 
+		B2b.comprarStock("25","269")
+		
+		end
+		if response['leche'] == false 	
+		B2b.comprarStock("7","251")
+		
+		end
+	end
+end
+def self.logicaHacerChocolate()
+	response = revisarMaterialesChocolate("1")
+	if(response['azucar']&&response['leche']&&response['cacao'])
+	producirChocolate()
+	end
+end
+def self.logicaAbastecerPasta()
+	chocolate = getStockProducto("48")
+	if chocolate.to_i <= 4000
+	response = revisarMaterialesPasta("1")
+		if response['semola']== false 
+		B2b.comprarStock("19","160")	
+		end
+		if response['sal'] == false 	
+		B2b.comprarStock("26","172")	
+		end
+		if response['huevo'] == false 	
+		B2b.comprarStock("2","155")
+		end
+		
+		
+	end
+end
+def self.logicaHacerPasta()
+	response = revisarMaterialesPasta("1")
+	if(response['semola']&&response['sal']&&response['huevo'])
+	producirPasta()
+	end
+end
+def self.logicaAbastecerHamb()
+	chocolate = getStockProducto("56")
+	if chocolate.to_i <= 4000
+	response = revisarMaterialesHamb("1")
+		if response['pollo']== false 
+		B2b.comprarStock("1","935")	
+		end
+		if response['sal'] == false 	
+		B2b.comprarStock("26","65")	
+		end
+		
+	end
+end
+def self.logicaHacerHamb()
+	response = revisarMaterialesHamb("1")
+	if(response['pollo']&&response['sal'])
+	producirPasta()
+	end
 end
 
