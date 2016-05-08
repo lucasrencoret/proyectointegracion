@@ -12,12 +12,12 @@ Rails.application.routes.draw do
   get 'api/facturas/recibir/:idfactura' => 'bodega#recibirFactura'
   # get 'api/pagos/recibir/:idtrx?idfactura=:idfactura' => 'bodega#recibirTransaccion'
   get 'api/pagos/recibir/:idtrx' => 'bodega#recibirTransaccion'
-
+ 
   #get 'api/pagos/recibir/:idtrx/:idfactura' => 'bodega#recibirTransaccion'
   get 'api/datos' => 'bodega#entregarCuenta'
   get 'api/despachos/recibir/:idfactura' => 'bodega#confirmarDespacho'
   get 'api/ids/almacenId' => 'bodega#idAlmacen'
-
+  get '/doc' => 'home#doc'
 
   resources :ocs
 
