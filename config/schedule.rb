@@ -37,5 +37,7 @@
   every 20.minutes do
    runner "Bodega.logicaHacerHamb", :environment => "development"
  end
-
+   every 30.minutes do
+   runner "Bodega.vaciarRecepcion", :environment => "development"
+ end
 # Learn more: http://github.com/javan/whenever
