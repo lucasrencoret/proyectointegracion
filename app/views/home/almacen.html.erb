@@ -1,0 +1,47 @@
+
+
+<h1>ALMACENES</h1><br>
+
+
+
+<% @almacenes.each do |almacen|  %>
+
+<% if almacen['despacho'] == true  %>
+<h3>Almacen de Despacho</h3>
+<ul>
+  <li>id:  <%= almacen['_id']  %></li>
+  <li>Espacio Total: <%= almacen['totalSpace']  %></li>
+  <li>Espacio Usado: <%= almacen['usedSpace']  %></li>
+</ul><br>
+<% end %>
+
+<% if almacen['recepcion'] == true  %>
+<h3>Almacen de Recepcion</h3>
+<ul>
+  <li>id:  <%= almacen['_id']  %></li>
+  <li>Espacio Total: <%= almacen['totalSpace']  %></li>
+  <li>Espacio Usado: <%= almacen['usedSpace']  %></li>
+</ul><br>
+<% end %>
+
+<% if almacen['pulmon'] == true  %>
+<h3>Almacen de Pulmon</h3>
+<ul>
+  <li>id:  <%= almacen['_id']  %></li>
+  <li>Espacio Total: <%= almacen['totalSpace']  %></li>
+  <li>Espacio Usado: <%= almacen['usedSpace']  %></li>
+</ul><br>
+<% end %>
+
+<% if almacen['pulmon'] == false && almacen['recepcion'] == false && almacen['despacho'] == false  %>
+<h3>Almacen General</h3>
+<ul>
+  <li>id:  <%= almacen['_id']  %></li>
+  <li>Espacio Total: <%= almacen['totalSpace']  %></li>
+  <li>Espacio Usado: <%= almacen['usedSpace']  %></li>
+</ul><br>
+<% end %>
+<% end %>
+
+
+<p><%= link_to "Volver al inicio", "/home/index" %></p>

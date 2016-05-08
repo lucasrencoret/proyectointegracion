@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get 'api/despachos/recibir/:idfactura' => 'bodega#confirmarDespacho'
   get 'api/ids/almacenId' => 'bodega#idAlmacen'
   get '/doc' => 'home#doc'
-
+  get '/almacen' => 'home#almacen'
   resources :ocs
 
   #resources :ocs

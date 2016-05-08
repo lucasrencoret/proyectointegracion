@@ -1,32 +1,56 @@
-<h1>Documentación API Grupo 9 </h1>
-<h2>Funcionalidades Implementadas </h2>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+</style>
+</head>
+<body>
 
 
-<%= @almacenes.each do |almacen|  %>
-
-<% if almacen['despacho'] == true  %>
-<h3>Este es el almacen de despacho: <%= almacen['_id']  %></h3>
-
-<% end %>
-<% if almacen['recepcion'] == true  %>
-<h3>Este es el almacen de recepcion: <%= almacen['_id']%> y su capacidad es <%= almacen['totalSpace']  %> </h3>
-
-<% end %>
-
-<% if almacen['pulmon'] == true  %>
-<h3>Este es un almacen pulmon: <%= almacen['_id']%> </h3>
-
-<% end %>
+<h2>Bienvenido al portal del grupo 9 </h2>
 
 
-<h3>Este es el id de la factura: </h3>
+<br>
 
-<% end %>
-<%= @ordenes = Oc.all  %>
-<%= @ordenes.each do |orden|  %>
-<%= orden['id']  %>
-
-<% end %>
+<h3>Ordenes de compra procesados </h3>
 
 
-<p><%= link_to "Ir a documentacion", "/doc" %></p>
+<table style="width:100%">
+  <tr>
+    <th>id</th>
+    <th>canal</th>
+    <th>cliente</th>
+    <th>cantidad</th>
+    <th>precioUnitario</th>
+    <th>estado</th>
+  </tr>
+<% @ordenes.each do |orden|  %>
+  <tr>
+    <% ordenes = Oc.getOc(orden['name']).first %>
+    <td><%= ordenes['_id'] %></td>
+    <td><%=ordenes['canal'] %></td> 
+    <td><%=ordenes['cliente'] %></td> 
+    <td><%=ordenes['cantidad'] %></td> 
+    <td><%=ordenes['precioUnitario'] %></td> 
+    <td><%=ordenes['estado'] %></td> 
+   
+    
+  </tr>
+  <% end %>
+</table>
+
+
+
+
+
+<p><%= link_to "Ir a documentacion", "/doc" %>   <%= link_to "Ir a los Almacenes", "/almacen" %></p>
+</body>
+</html>
