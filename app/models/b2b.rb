@@ -39,24 +39,24 @@ end
 def self.comprarStock(sku, cantidad)
 
     numGrupo = productos.fetch(sku)[0]
-    idgrupo_cliente = productos.fetch(sku)[3]
+    idgrupo_proveedor = productos.fetch(sku)[3]
     precioUnitario = productos.fetch(sku)[1]
 
     
    
 	buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/consultar/'+ sku.to_s , "Content-Type"=>"application/json").read
 	resultado = JSON.parse(buffer)
-	
+	p resultado
 	if resultado['stock'].to_i >= cantidad.to_i
 		#p "prueba 2"
-		orden = Oc.crearOc("b2b", cantidad.to_i, sku, "571262b8a980ba030058ab57", precioUnitario, "lll", idgrupo_cliente, 1470495430000)
+		orden = Oc.crearOc("b2b", cantidad.to_i, sku, idgrupo_proveedor, precioUnitario, "lll", idgrupo_cliente, 1470495430000)
 		idoc = orden['_id']
 		#p idoc
 		#p "prueba 3"
 
 		buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/oc/recibir/'+ idoc.to_s , "Content-Type"=>"application/json").read
 		resultado1 = JSON.parse(buffer)
-		if resultado1['aceptado'=false]
+		if resultado1['aceptado'==false]
 		#anularOc
 		end
 			
