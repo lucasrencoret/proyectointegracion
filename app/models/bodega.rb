@@ -288,7 +288,7 @@ end
 def self.pagarFabricacion(precio)
 	jsonCuenta = getCuentaFabrica()
 	idCuentaF = jsonCuenta['cuentaId']
-	response = Banco.transferir(precio,"571262c3a980ba030058ab66",idCuentaF)
+	response = Banco.transferir(precio,"572aac69bdb6d403005fb057",idCuentaF)
 	response["_id"]
 	
 end
@@ -370,9 +370,9 @@ end
 def self.vaciarRecepcion()
 
     recepcion = "571262aaa980ba030058a3b0"
-    general1 = "571262aaa980ba030058a3b2"
-    general2 = "571262aaa980ba030058a40a"
-    pulmon = "571262aaa980ba030058a40b"    
+    general1 = "572aad41bdb6d403005fb4ba"
+    general2 = "572aad41bdb6d403005fb540"
+    pulmon = "572aad41bdb6d403005fb541"   
 
     productosRecepcion = getSkusWithStock(recepcion)
     p "1"

@@ -20,7 +20,7 @@ class BodegaController < ApplicationController
         preciocorrecto =true
        end
        
-       if (stock >= cantidad && proveedor="571262b8a980ba030058ab57" && preciocorrecto =true)
+       if (stock >= cantidad && proveedor="572aac69bdb6d403005fb04a" && preciocorrecto =true)
             Oc.recepcionarOc(params[:idoc])
             factura = Factura.emitirFactura(params[:idoc])
             idFac = factura['_id']
@@ -42,7 +42,7 @@ class BodegaController < ApplicationController
             
    end
    def entregarCuenta
-        render :json => { "idGrupo" => "571262b8a980ba030058ab57" , "idCuentaBanco" => "571262c3a980ba030058ab66" }
+        render :json => { "idGrupo" => "572aac69bdb6d403005fb04a" , "idCuentaBanco" => "572aac69bdb6d403005fb057" }
          
    end
   
