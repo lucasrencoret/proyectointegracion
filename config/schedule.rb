@@ -13,7 +13,7 @@
  #  rake "some:great:rake:task"
  #end
 #
- every 10.minutes do
+ every 4.minutes do
    runner "Ftp.conecta()", :environment => "development", :output => 'log/check_status_update.log'
  end
  

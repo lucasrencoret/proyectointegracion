@@ -112,31 +112,31 @@ def self.conecta()
                               end
                         end
                         
-                        seguir = true
-                        puts "voy a entrar!"
+                        #seguir = true
+                        #puts "voy a entrar!"
                         if seguir
-                              puts "entre!"
+                              #puts "entre!"
                               ingresar_orden = Oc.create(:name => orden_id)
-                              puts "ingresado en Base de datos"
+                              #puts "ingresado en Base de datos"
                               Oc.recepcionarOc(orden_id)
                               Bodega.moverInsumo(orden_sku, orden_qty)
-                              puts "se movieron los insumos"
+                              #puts "se movieron los insumos"
                               Factura.emitirFactura(orden_id.to_s)
-                              puts "emitida la factura"
+                              #puts "emitida la factura"
                               Bodega.despacharPedido(orden_id, orden_sku, orden_qty, orden_precio)
                               
-                              puts "aceptar orden"
+                              #puts "aceptar orden"
                               
                               
                               
                         else
                               Oc.rechazarOc(orden_id, "Esta por debajo del Precio")
-                              puts "rechazar Oc por precio"
+                              #puts "rechazar Oc por precio"
                         end
                         
                   else
                         Oc.rechazarOc(orden_id, "No tenemos stock")
-                        puts "rechazar Oc por stock" + orden_sku.to_s + " el stock" + orden_qty.to_s+ " con odId = "+ orden_id
+                        #puts "rechazar Oc por stock" + orden_sku.to_s + " el stock" + orden_qty.to_s+ " con odId = "+ orden_id
                   end
                 end
                 
