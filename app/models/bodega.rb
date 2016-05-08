@@ -311,15 +311,66 @@ def self.logicaCacaos()
 	end
 	
 end
-def self.logicaChocolate()
+def self.logicaAbastecerChocolate()
 	chocolate = getStockProducto("46")
 	if chocolate.to_i <= 4000
 	response = revisarMaterialesChocolate("1")
-	if response['azucar']== false 
-		B2b.comprarStock(25,269)
-	if responde['leche'] == false 	
-		B2b.comprarStock(7,251)
-	
+		if response['azucar']== false 
+		B2b.comprarStock("25","269")
+		print "comprando"
+		end
+		if response['leche'] == false 	
+		B2b.comprarStock("7","251")
+		print "comprando"
+		end
+	end
 end
+def self.logicaHacerChocolate()
+	response = revisarMaterialesChocolate("1")
+	if(response['azucar']&&response['leche']&&response['cacao'])
+	producirChocolate()
+	end
+end
+def self.logicaAbastecerPasta()
+	chocolate = getStockProducto("48")
+	if chocolate.to_i <= 4000
+	response = revisarMaterialesPasta("1")
+		if response['semola']== false 
+		B2b.comprarStock("19","160")	
+		end
+		if response['sal'] == false 	
+		B2b.comprarStock("26","172")	
+		end
+		if response['huevo'] == false 	
+		B2b.comprarStock("2","155")
+		end
+		
+		
+	end
+end
+def self.logicaHacerPasta()
+	response = revisarMaterialesPasta("1")
+	if(response['semola']&&response['sal']&&response['huevo'])
+	producirPasta()
+	end
+end
+def self.logicaAbastecerHamb()
+	chocolate = getStockProducto("56")
+	if chocolate.to_i <= 4000
+	response = revisarMaterialesHamb("1")
+		if response['pollo']== false 
+		B2b.comprarStock("1","935")	
+		end
+		if response['sal'] == false 	
+		B2b.comprarStock("26","65")	
+		end
+		
+	end
+end
+def self.logicaHacerHamb()
+	response = revisarMaterialesHamb("1")
+	if(response['pollo']&&response['sal'])
+	producirPasta()
+	end
 end
 
