@@ -56,7 +56,7 @@ def self.comprarStock(sku, cantidad)
 
 		buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/oc/recibir/'+ idoc.to_s , "Content-Type"=>"application/json").read
 		resultado1 = JSON.parse(buffer)
-		if resultado1['aceptado'==false]
+		if !resultado1['aceptado']
 		#anularOc
 		end
 			
