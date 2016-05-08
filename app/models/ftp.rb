@@ -29,10 +29,10 @@ def self.prueba_basedatos()
 end
 
 def self.conecta()
-    host = 'mare.ing.puc.cl'
+    host = 'moto.ing.puc.cl'
     port = '22'
     user = 'integra9'
-    password = 'cdFybj2t'
+    password = 'kZFEEuk8'
     
     tiempo_mayor_local = tiempo_inicio
     
@@ -65,8 +65,8 @@ def self.conecta()
                   end
                   
                   #bajar la info"/Users/lucasrencoret/Desktop/test/"+entry.name
-                  data = File.read("/Users/lucasrencoret/Desktop/test/"+entry.name)
-                  #data = sftp.download!("/pedidos/"+entry.name)
+                  #data = File.read("/Users/lucasrencoret/Desktop/test/"+entry.name)
+                  data = sftp.download!("/pedidos/"+entry.name)
                   #puts data
                   doc = Nokogiri::XML(data)
                   thing = doc.at_xpath('order')

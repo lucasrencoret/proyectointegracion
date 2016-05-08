@@ -16,7 +16,7 @@ class Bodega < ActiveRecord::Base
 
 def self.encrypt(texto)
 	key = texto
-	data = 'WqhY79mm3N4ph6'
+	data = 'ZC$&k:.gFIZ&pyp'
 	OpenSSL::HMAC.digest('SHA1',data,key)
 	Base64.strict_encode64 OpenSSL::HMAC.digest('SHA1',data,key)
 
@@ -30,7 +30,7 @@ end
 	
 def self.getAlmacenes () #entrega informacion sobre los almacenes de la bodega solicitada
 	header = crear_string("GET")
-	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
+	buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
 
 end
@@ -47,14 +47,14 @@ def self.idAlmacenDespacho ()
 end
 def self.getSkusWithStock(almacenId)
 	header = crear_string("GET" + almacenId)
-	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/skusWithStock?almacenId='+almacenId , "Content-Type"=>"application/json", "Authorization" => header).read
+	buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/skusWithStock?almacenId='+almacenId , "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
 
 end
 
 def self.getStock(almacenId, sku) #devuelve todos los productos de un sku que estan en un almacen
 	header = crear_string("GET"+almacenId+sku)
-	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read
+	buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
 
 
@@ -88,13 +88,13 @@ def self.getStockProducto(sku_request)
 end
 def self.moveStock(productoid,almacenid) #almacen de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
-	response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	response = RestClient.post 'http://integracion-2016-prod.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 	resultado = JSON.parse(response)
 end
 
 def self.moveStockBodega(productoid,almacenid, oc, precio) #Almacén de recepción de la bodega del grupo de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
-	response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid, :oc => oc, :precio => precio}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	response = RestClient.post 'http://integracion-2016-prod.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid, :oc => oc, :precio => precio}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 	resultado = JSON.parse(response)
 end
 
@@ -102,7 +102,7 @@ def self.despacharStock(productoId, direccion, precio, oc)
 	header = crear_string("DELETE"+productoId+direccion+precio+oc)
 	#respuesta = RestClient.delete , {:productoId => productoId.to_s, :direccion => direccion.to_s, :precio => precio.to_i, :oc => oc.to_s}.to_json, :Authorization => header, :content_type=> 'application/x-www-form-urlencoded'
 	puts header
-	respuesta = Typhoeus::Request.new('http://integracion-2016-dev.herokuapp.com/bodega/stock', 
+	respuesta = Typhoeus::Request.new('http://integracion-2016-prod.herokuapp.com/bodega/stock', 
 	method: :delete, 
 	body: {productoId: productoId.to_s, direccion:  direccion.to_s, precio: precio.to_i, oc: oc.to_s}, 
 	headers: {'Content-Type' => "application/x-www-form-urlencoded",'Authorization' => header})
@@ -160,13 +160,13 @@ def self.producirStock(sKu, trxid, cAntidad)
 	stringSku = sKu.to_s
 	stringCantidad = cAntidad.to_s
 	autorizacion =crear_string("PUT"+stringSku+stringCantidad+trxid)
-	response = RestClient.put 'http://integracion-2016-dev.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	response = RestClient.put 'http://integracion-2016-prod.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 	resultado = JSON.parse(response)
 end
 
 def self.getCuentaFabrica () #entrega la cuenta id de la fabrica 
 	header = crear_string("GET")
-	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read
+	buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read
 	resultado = JSON.parse(buffer)
 end
 def self.abastecerCacao(lotes)
