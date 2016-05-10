@@ -2,7 +2,7 @@ require 'net/ftp'
 require 'net/ssh'
 require 'net/sftp'
 class Ftp < ActiveRecord::Base
-@@tiempo_inicio = Time.new(2016, 5, 5, 6, 0, 0, "+03:00")
+@@tiempo_inicio = Time.new(2016, 5, 10, 6, 0, 0, "+03:00")
 
 
 def self.tiempo_inicio
