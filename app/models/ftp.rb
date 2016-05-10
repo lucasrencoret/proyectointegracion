@@ -77,7 +77,9 @@ def self.conecta()
                   #bodegas = Bodega.connection
                   respuesta = Bodega.consultar(orden_sku)
                   seguir = false
-                  if respuesta['stock'].to_i > orden_qty.to_i
+                  ver_si_esta = Oc.where(:name=>orden_id)
+                  ya_esta = ver_si_esta.blank?
+                  if respuesta['stock'].to_i > orden_qty.to_i && !ya_esta
                         #mandar a hacer
                         orden_de_compra = Oc.getOc(orden_id).first
                         #puts orden_de_compra
