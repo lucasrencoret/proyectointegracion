@@ -117,7 +117,7 @@ def self.conecta()
                         #puts "voy a entrar!"
                         if seguir
                               #puts "entre!"
-                              ingresar_orden = Oc.create(:name => orden_id)
+                              
                               #puts "ingresado en Base de datos"
                               Oc.recepcionarOc(orden_id)
                               Bodega.moverInsumo(orden_sku, orden_qty)
@@ -125,8 +125,8 @@ def self.conecta()
                               Factura.emitirFactura(orden_id.to_s)
                               #puts "emitida la factura"
                               Bodega.despacharPedido(orden_id, orden_sku, orden_qty, orden_precio.to_s)
-                              
-                              #puts "aceptar orden"
+                              ingresar_orden = Oc.create(:name => orden_id)
+                              puts "aceptar orden"
                               
                               
                               

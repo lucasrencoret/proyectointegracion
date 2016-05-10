@@ -13,15 +13,15 @@
 <ul>Entrega JSON con stock total (en todos los almacenes) dado el SKU </ul>
 <ul>Retorno: {"stock":int, "sku":string}</ul><br>
 
-<ul> <font size="5"><b> >Estado de Orden de Compra: <%= link_to "integra9.ing.puc.cl/api/oc/recibir/:idoc", "api/oc/recibir/572789c5c1ff9b0300017d44" %></b></font></ul>
+<ul> <font size="5"><b> >Estado de Orden de Compra: <%= link_to "integra9.ing.puc.cl/api/oc/recibir/:idoc", "api/oc/recibir/572eb33d6f88de0300f97770" %></b></font></ul>
 <ul>Entrega JSON informando si se aceptó o se rechazó la orden de compra </ul>
 <ul>Retorno: {"aceptado":boolean, "id":string}</ul><br>
 
-<ul><font size="5"><b> >Estado de Validación de Factura: <%= link_to "integra9.ing.puc.cl/api/facturas/recibir/:idfactura", "api/facturas/recibir/5728f9999fda6e0300474217" %></b></font></ul>
+<ul><font size="5"><b> >Estado de Validación de Factura: <%= link_to "integra9.ing.puc.cl/api/facturas/recibir/:idfactura", "#" %></b></font></ul>
 <ul>Entrega JSON informando si dado el id de una factura, esta fue validada o no </ul>
 <ul>Retorno: {"validado":boolean,"idfactura":string}</ul><br>
 
-<ul><font size="5"><b> >Enviar Transacción: <%= link_to "integra9.ing.puc.cl/api/pagos/recibir/:idtrx", "api/pagos/recibir/572a5e55e3648d030036a603?idfactura=572e73c418b3850300a6fcea" %></b></font></ul>
+<ul><font size="5"><b> >Enviar Transacción: <%= link_to "integra9.ing.puc.cl/api/pagos/recibir/:idtrx", "#" %></b></font></ul>
 <ul>Envía transacción a Empresa </ul>
 <ul>Retorno: {"validado":boolean,"idtrx":string}</ul><br>
 

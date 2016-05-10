@@ -13,20 +13,20 @@
  #  rake "some:great:rake:task"
  #end
 #
- every 4.minutes do
+ every 45.minutes do
    runner "Ftp.conecta()", :environment => "development", :output => 'log/check_status_update.log'
  end
-  every 250.minutos do
-   runner "Bodega.logicaCacaos", :environment => "development"
+  every 250.minutes do
+   runner "Bodega.logicaCacaos", :environment => "development", :output => 'log/check_status_update_logicaCacao.log'
  end
  every 90.minutes do
-   runner "Bodega.logicaAbastecerChocolate", :environment => "development"
+   runner "Bodega.logicaAbastecerChocolate", :environment => "development", :output => 'log/check_status_update_abastecerchocolate.log'
  end
  every 150.minutes do
-   runner "Bodega.logicaAbastecerPasta", :environment => "development"
+   runner "Bodega.logicaAbastecerPasta", :environment => "development", :output => 'log/check_status_abastecerpasta.log'
  end
  every 121.minutes do
-   runner "Bodega.logicaAbastecerHamb", :environment => "development"
+   runner "Bodega.logicaAbastecerHamb", :environment => "development", :output => 'log/check_status_logicahacerchocolate.log'
  end
  every 20.minutes do
    runner "Bodega.logicaHacerChocolate", :environment => "development"
@@ -38,6 +38,6 @@
    runner "Bodega.logicaHacerHamb", :environment => "development"
  end
    every 30.minutes do
-   runner "Bodega.vaciarRecepcion", :environment => "development"
+   runner "Bodega.vaciarRecepcion", :environment => "development", :output => 'log/check_status_vaciarrecepcion.log'
  end
 # Learn more: http://github.com/javan/whenever

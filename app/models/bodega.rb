@@ -134,7 +134,8 @@ def self.despacharPedido(idoc, sku, qty, precio)
 				end
 			end
 		end
-	end	
+	end
+	puts "pedido despachado"	
 end
 def self.despacharB2b(idoc, sku, qty, precio,almacenid)
 almacenes = getAlmacenes()
