@@ -410,4 +410,43 @@ def self.vaciarRecepcion()
         end
     end
   end
+def self.vaciarPulmon()
+
+    recepcion = "572aad41bdb6d403005fb4b8"
+    general1 = "572aad41bdb6d403005fb4ba"
+    general2 = "572aad41bdb6d403005fb540"
+    pulmon = "572aad41bdb6d403005fb541"   
+
+    productosRecepcion = getSkusWithStock(pulmon)
+    p "1"
+    if (productosRecepcion.size > 0)
+        productosRecepcion.each do |tipoProducto|
+            p "2"
+            #cantidadProducto = tipoProducto['total'] 
+              skuProducto = tipoProducto['_id']
+              productoSKU = getStock(pulmon, skuProducto)
+              p "3"
+              productoSKU.each do |productito|
+                  p "4"
+                  #productoMovido = false
+                  #almacenes = getAlmacenes
+                  #almacenes.each do |almacen|
+                      #p "5"
+                      #if ((almacen['_id'] = general1) and (almacen['totalSpace'] > almacen['usedSpace'])and (!productoMovido))
+                  moveStock(productito['_id'],general1)
+                              #productoMovido = true
+                              #p "6"
+                              #vaciarRecepcion()
+                      #elsif ((almacen['_id'] = general2) and (almacen['totalSpace'] > almacen['usedSpace'])and (!productoMovido))
+                              #moveStock(productito['_id'],general2)
+                              #productoMovido = true
+                              #vaciarRecepcion()
+                      #end
+                      
+                  #end    
+              end    
+        end
+    end
+  end
+
 end
