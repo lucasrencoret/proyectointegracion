@@ -370,7 +370,7 @@ end
 
 def self.vaciarRecepcion()
 
-    recepcion = "571262aaa980ba030058a3b0"
+    recepcion = "572aad41bdb6d403005fb4b8"
     general1 = "572aad41bdb6d403005fb4ba"
     general2 = "572aad41bdb6d403005fb540"
     pulmon = "572aad41bdb6d403005fb541"   

@@ -34,7 +34,7 @@ th, td {
   </tr>
 <% @ordenes.each do |orden|  %>
   <tr>
-    <% ordenes = Oc.getOc(orden['name']).first %>
+    <% ordenes = Oc.getOc(orden).first %>
     <td><%= ordenes['_id'] %></td>
     <td><%=ordenes['canal'] %></td> 
     <td><%=ordenes['cliente'] %></td> 

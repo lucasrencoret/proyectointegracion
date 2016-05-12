@@ -1,7 +1,7 @@
 
 class HomeController < ApplicationController
   def index
-  	@ordenes = Oc.all
+  	@ordenes = Oc.uniq.pluck(:name)
   	#@facturas= Facturas.obtenerFactura(:id => params[:iD])
 
   	# <%= Factura.find_by(:id => params[:iD])%>
