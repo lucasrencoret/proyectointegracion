@@ -25,11 +25,11 @@ class B2b < ActiveRecord::Base
 				 "26" => [8,753,144,"572aac69bdb6d403005fb049"],
 				 "37" => [8,764,1200,"572aac69bdb6d403005fb049"],
 				 "20" => [9,1280,60,"572aac69bdb6d403005fb04a"],
-				 "3"  => [10,1468,30,"571262b8a980ba030058ab5b"],
-				 "9"  => [10,1397,620,"571262b8a980ba030058ab5b"],
-				 "43" => [11,1197,1000,"571262b8a980ba030058ab5c"],
-				 "7"  => [12,941,1000,"571262b8a980ba030058ab5d"],
-                 "15" => [12,969,480,"571262b8a980ba030058ab5d"] ]
+				 "3"  => [10,1468,30,"572aac69bdb6d403005fb04b"],
+				 "9"  => [10,1397,620,"572aac69bdb6d403005fb04b"],
+				 "43" => [11,1197,1000,"572aac69bdb6d403005fb04c"],
+				 "7"  => [12,941,1000,"572aac69bdb6d403005fb04d"],
+                 "15" => [12,969,480,"572aac69bdb6d403005fb04d"] ]
 
 def self.productos()
 	@@productos
@@ -47,7 +47,7 @@ def self.comprarStock(sku, cantidad)
 	
 	if resultado['stock'].to_i >= cantidad.to_i
 		
-		orden = Oc.crearOc("b2b", cantidad.to_i, sku, idgrupo_proveedor, precioUnitario, "lll", "572aac69bdb6d403005fb048", 1470495430000)
+		orden = Oc.crearOc("b2b", cantidad.to_i, sku, idgrupo_proveedor, precioUnitario, "lll", "572aac69bdb6d403005fb04a", 1470495430000)
 		idoc = orden['_id']
 		
 		
