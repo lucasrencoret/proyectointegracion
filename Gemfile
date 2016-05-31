@@ -36,6 +36,11 @@ gem 'typhoeus'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# Spree Gems
+gem 'spree', '~> 3.1.0.rc1'
+gem 'spree_auth_devise', '~> 3.1.0.rc1'
+gem 'spree_gateway', '~> 3.1.0.rc1'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
