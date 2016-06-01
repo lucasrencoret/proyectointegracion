@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # If you would like to change where this engine is mounted, simply change the :at option to something different.
   #
   # We ask that you don't use the :as option here, as Spree relies on it being the default of "spree"
-  mount Spree::Core::Engine, at: '/'
+  mount Spree::Core::Engine, at: '/tienda'
           get 'home/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
