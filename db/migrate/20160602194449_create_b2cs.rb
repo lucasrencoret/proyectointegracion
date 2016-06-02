@@ -1,6 +1,6 @@
-class CreateBoleta < ActiveRecord::Migration
+class CreateB2cs < ActiveRecord::Migration
   def change
-    create_table :boleta do |t|
+    create_table :b2cs do |t|
       t.string :cliente
       t.string :proveedor
       t.integer :bruto

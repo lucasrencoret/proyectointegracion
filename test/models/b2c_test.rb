@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BoletaTest < ActiveSupport::TestCase
+class B2cTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

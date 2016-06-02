@@ -44,14 +44,14 @@ module Spree
       variant  = Spree::Variant.find(params[:variant_id])
       quantity = params[:quantity].to_i
       options  = params[:options] || {}
+      direccion = params[:direccion]
+      sku = params[:sku]
+      
+      
 
       # 2,147,483,647 is crazy. See issue #2695.
       if quantity.between?(1, 2_147_483_647)
-        begin
-          order.contents.add(variant, quantity, options)
-        rescue ActiveRecord::RecordInvalid => e
-          error = e.record.errors.full_messages.join(", ")
-        end
+        
       else
         error = Spree.t(:please_enter_reasonable_quantity)
       end
@@ -60,10 +60,28 @@ module Spree
         flash[:error] = error
         redirect_back_or_default(spree.root_path)
       else
-        respond_with(order) do |format|
-          format.html { redirect_to cart_path }
+        total = 0;
+        if(sku.to_i == 20)
+          total = 1612*quantity
+        elsif (sku.to_i == 46)
+          total = 8514*quantity
+        elsif (sku.to_i == 48)
+          total = 6627*quantity
+        else
+          total = 5052*quantity
         end
+        
+        respuesta = Factura.crearBoleta("571262b8a980ba030058ab57", "cliente", total)
+        respuesta_model = B2c.create(:cliente => respuesta['cliente'], :proveedor => respuesta['proveedor'], :bruto => respuesta['bruto'], :iva => respuesta['iva'], :total => respuesta['total'], :_id => respuesta['_id'], :estado => respuesta['estado'], :direccion => direccion, :sku => sku, :cantidad => quantity)
+        puts respuesta_model
+        
+        url_ok = "http%3A%2F%2Flocalhost:3000/tienda/ok/"+respuesta['_id']
+        url_fail = "http%3A%2F%2Flocalhost:3000/tienda/fail/"
+        url = "http://integracion-2016-dev.herokuapp.com/web/pagoenlinea?callbackUrl="+url_ok+"&cancelUrl="+url_fail+"+&boletaId="+respuesta['_id']
+        
+        redirect_to url
       end
+    
     end
 
     def empty

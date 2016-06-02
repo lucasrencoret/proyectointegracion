@@ -31,8 +31,8 @@ end
 
 def self.crearBoleta(proveed, cliente, total)
 	
-	RestClient.put 'http://moto.ing.puc.cl/facturas/boleta', {:proveedor => proveed, :cliente => cliente, :total => total}.to_json, :content_type=> 'application/json'
-	
+	response = RestClient.put 'http://mare.ing.puc.cl/facturas/boleta', {:proveedor => proveed, :cliente => cliente, :total => total}.to_json, :content_type=> 'application/json'
+	resultadoEnJson = JSON.parse(response)
 end
 
 
