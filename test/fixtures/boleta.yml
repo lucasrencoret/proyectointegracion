@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cliente: MyString
+  proveedor: MyString
+  bruto: 1
+  iva: 1
+  total: 1
+  _id: MyString
+  estado: MyString
+  direccion: MyString
+  sku: 1
+  cantidad: 1
+
+two:
+  cliente: MyString
+  proveedor: MyString
+  bruto: 1
+  iva: 1
+  total: 1
+  _id: MyString
+  estado: MyString
+  direccion: MyString
+  sku: 1
+  cantidad: 1
