@@ -1,2 +1,12 @@
-<h1>Boletas#ok</h1>
-<p>Find me in app/views/boletas/ok.html.erb</p>
+<h1>Tu compra se ha realizado con éxito!!</h1>
+
+
+<h3>Cliente: <%= @boleta.cliente %></h3>
+<h3>Proveedor: <%= @boleta.proveedor %></h3>
+<h3>Bruto: <%= @boleta.bruto %></h3>
+<h3>IVA: <%= @boleta.iva %></h3>
+<h3>Total: <%= @boleta.total %></h3>
+
+<h3>PONER ACA TODA LA INFORAMCION DE LA BOLETA </h3>
+
+<%= link_to "Regresar a la tienda", spree_path %>
