@@ -121,21 +121,52 @@ def self.despacharPedido(idoc, sku, qty, precio)
 	despacho = idAlmacenDespacho
 	almacenes.each do |almacen|
 		if almacen['despacho'] == true
-			todos_los_productos = getStock(almacen['_id'],sku)
-			todos_los_productos.each do |producto|
-				if(totalDespachados<qty.to_i)
-					resultado_de_delete = despacharStock(producto['_id'],"a", precio, idoc).run
-					respuesta = JSON.parse(resultado_de_delete.response_body)
-					
-					if  respuesta['despachado']#poner el resultado del delete, la variable del bool
-						puts "despachando"
-						totalDespachados+=1
+			for i in 0..((qty/200.0).ceil)
+				todos_los_productos = getStock(almacen['_id'],sku)
+				todos_los_productos.each do |producto|
+					if(totalDespachados<qty.to_i)
+						resultado_de_delete = despacharStock(producto['_id'],"a", precio, idoc).run
+						respuesta = JSON.parse(resultado_de_delete.response_body)
+						
+						if  respuesta['despachado']#poner el resultado del delete, la variable del bool
+							puts "despachando"
+							totalDespachados+=1
+						end
 					end
 				end
 			end
 		end
 	end
 	puts "pedido despachado"	
+end
+ 
+def self.despacharPedidoB2c(sku, qty, direccion, precio, id_boleta)
+	almacenes = getAlmacenes()
+	totalDespachados = 0
+	despacho = idAlmacenDespacho
+	almacenes.each do |almacen|
+		if almacen['despacho'] == true
+			# aca tengo que hacer el for porque retorna 200 como maximo.
+			#if qty>200 repetir
+			for i in 0..((qty/200.0).ceil) #esto es porque el getStock te devuelve solo de a 200 unidades.
+				todos_los_productos = getStock(almacen['_id'],sku)
+				todos_los_productos.each do |producto|
+					if(totalDespachados<qty.to_i)
+						resultado_de_delete = despacharStock(producto['_id'],direccion, precio, id_boleta).run
+						respuesta = JSON.parse(resultado_de_delete.response_body)
+						
+						if  respuesta['despachado']#poner el resultado del delete, la variable del bool
+							puts "despachando"
+							totalDespachados+=1
+						end
+					end
+				end
+			end
+		end
+	end
+	puts "pedido despachado"
+	
+
 end
 def self.despacharB2b(idoc, sku, qty, precio,almacenid)
 almacenes = getAlmacenes()
