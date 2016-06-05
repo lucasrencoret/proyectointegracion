@@ -17,15 +17,15 @@ class Bodega < ActiveRecord::Base
 def self.encrypt(texto)
 	key = texto
 
-	if Rails.env.production?
+	#if Rails.env.production?
 		data = 'ZC$&k:.gFIZ&pyp'   #PENDIENTE esto cambia segun dev o prod o no ?
 		OpenSSL::HMAC.digest('SHA1',data,key)
 		Base64.strict_encode64 OpenSSL::HMAC.digest('SHA1',data,key)
-	else
-		data = 'WqhY79mm3N4ph6'   #PENDIENTE esto cambia segun dev o prod o no ?
-		OpenSSL::HMAC.digest('SHA1',data,key)
-		Base64.strict_encode64 OpenSSL::HMAC.digest('SHA1',data,key)
-	end
+	#else
+	#	data = 'WqhY79mm3N4ph6'   #PENDIENTE esto cambia segun dev o prod o no ?
+	#	OpenSSL::HMAC.digest('SHA1',data,key)
+	#	Base64.strict_encode64 OpenSSL::HMAC.digest('SHA1',data,key)
+	#end
 end
 
 def self.crear_string(data)
@@ -36,11 +36,11 @@ end
 def self.getAlmacenes () #entrega informacion sobre los almacenes de la bodega solicitada
 	header = crear_string("GET")
 	
-	if Rails.env.production?
+	#if Rails.env.production?
 		buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
-	else
-		buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
-	end
+	#else
+	#	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
+	#end
 
 	resultado = JSON.parse(buffer)
 
@@ -59,11 +59,11 @@ end
 def self.getSkusWithStock(almacenId)
 	header = crear_string("GET" + almacenId)
 	
-	if Rails.env.production?
+	#if Rails.env.production?
 		buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/skusWithStock?almacenId='+almacenId , "Content-Type"=>"application/json", "Authorization" => header).read
-	else
-		buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/skusWithStock?almacenId='+almacenId , "Content-Type"=>"application/json", "Authorization" => header).read
-	end
+	#else
+	#	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/skusWithStock?almacenId='+almacenId , "Content-Type"=>"application/json", "Authorization" => header).read
+	#end
 
 	resultado = JSON.parse(buffer)
 
@@ -72,11 +72,11 @@ end
 def self.getStock(almacenId, sku) #devuelve todos los productos de un sku que estan en un almacen
 	header = crear_string("GET"+almacenId+sku)
 	
-	if Rails.env.production?
+	#if Rails.env.production?
 		buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read
-	else
-		buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read
-	end
+	#else
+	#	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read
+	#end
 
 	resultado = JSON.parse(buffer)
 
@@ -112,11 +112,11 @@ end
 def self.moveStock(productoid,almacenid) #almacen de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
 	
-	if Rails.env.production?
+	#if Rails.env.production?
 		response = RestClient.post 'http://integracion-2016-prod.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
-	else
-		response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
-	end
+	#else
+	#	response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	#end
 
 	resultado = JSON.parse(response)
 end
@@ -124,11 +124,11 @@ end
 def self.moveStockBodega(productoid,almacenid, oc, precio) #Almacén de recepción de la bodega del grupo de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
 	
-	if Rails.env.production?
+	#if Rails.env.production?
 		response = RestClient.post 'http://integracion-2016-prod.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid, :oc => oc, :precio => precio}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
-	else
-		response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid, :oc => oc, :precio => precio}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
-	end 
+	#else
+	#	response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid, :oc => oc, :precio => precio}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	#end 
 
 	resultado = JSON.parse(response)
 end
@@ -138,17 +138,17 @@ def self.despacharStock(productoId, direccion, precio, oc)
 	#respuesta = RestClient.delete , {:productoId => productoId.to_s, :direccion => direccion.to_s, :precio => precio.to_i, :oc => oc.to_s}.to_json, :Authorization => header, :content_type=> 'application/x-www-form-urlencoded'
 	puts header
 	
-	if Rails.env.production?
+	#if Rails.env.production?
 		respuesta = Typhoeus::Request.new('http://integracion-2016-prod.herokuapp.com/bodega/stock', 
 		method: :delete, 
 		body: {productoId: productoId.to_s, direccion:  direccion.to_s, precio: precio.to_i, oc: oc.to_s}, 
 		headers: {'Content-Type' => "application/x-www-form-urlencoded",'Authorization' => header})
-	else
-		respuesta = Typhoeus::Request.new('http://integracion-2016-dev.herokuapp.com/bodega/stock', 
-		method: :delete, 
-		body: {productoId: productoId.to_s, direccion:  direccion.to_s, precio: precio.to_i, oc: oc.to_s}, 
-		headers: {'Content-Type' => "application/x-www-form-urlencoded",'Authorization' => header})
-	end
+	#else
+	#	respuesta = Typhoeus::Request.new('http://integracion-2016-dev.herokuapp.com/bodega/stock', 
+	#	method: :delete, 
+	#	body: {productoId: productoId.to_s, direccion:  direccion.to_s, precio: precio.to_i, oc: oc.to_s}, 
+	#	headers: {'Content-Type' => "application/x-www-form-urlencoded",'Authorization' => header})
+	#end
 
 	  return respuesta
 end
@@ -237,11 +237,11 @@ def self.producirStock(sKu, trxid, cAntidad)
 	stringCantidad = cAntidad.to_s
 	autorizacion =crear_string("PUT"+stringSku+stringCantidad+trxid)
 	
-	if Rails.env.production?
+	#if Rails.env.production?
 		response = RestClient.put 'http://integracion-2016-prod.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
-	else
-		response = RestClient.put 'http://integracion-2016-dev.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'		
-	end
+	#else
+	#	response = RestClient.put 'http://integracion-2016-dev.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'		
+	#end
 
 	resultado = JSON.parse(response)
 end
@@ -249,11 +249,11 @@ end
 def self.getCuentaFabrica () #entrega la cuenta id de la fabrica 
 	header = crear_string("GET")
 	
-	if Rails.env.production?
+	#if Rails.env.production?
 		buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read
-	else
-		buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read		
-	end
+	#else
+	#	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read		
+	#end
 
 	resultado = JSON.parse(buffer)
 end
@@ -377,11 +377,11 @@ def self.pagarFabricacion(precio)
 	jsonCuenta = getCuentaFabrica()
 	idCuentaF = jsonCuenta['cuentaId']
 	
-	if Rails.env.production?
+	#if Rails.env.production?
 		response = Banco.transferir(precio,"572aac69bdb6d403005fb057",idCuentaF)  
-	else 
-		response = Banco.transferir(precio,"571262c3a980ba030058ab66",idCuentaF)  
-	end
+	#else 
+	#	response = Banco.transferir(precio,"571262c3a980ba030058ab66",idCuentaF)  
+	#end
 
 	response["_id"]
 	
@@ -463,18 +463,18 @@ end
 
 def self.vaciarRecepcion()
 
-	if Rails.env.production?
+	#if Rails.env.production?
     	recepcion = "572aad41bdb6d403005fb4b8"
     	general1 = "572aad41bdb6d403005fb4ba"
     	general2 = "572aad41bdb6d403005fb540"
     	pulmon = "572aad41bdb6d403005fb541"   
     
-    else
-    	recepcion = "571262aaa980ba030058a3b0"    
-    	general1 = "571262aaa980ba030058a3b2"     
-    	general2 = "571262aaa980ba030058a40a"     
-    	pulmon = "571262aaa980ba030058a40b"       
-    end 
+    #else
+    #	recepcion = "571262aaa980ba030058a3b0"    
+    #	general1 = "571262aaa980ba030058a3b2"     
+    #	general2 = "571262aaa980ba030058a40a"     
+    #	pulmon = "571262aaa980ba030058a40b"       
+    #end 
     	
     productosRecepcion = getSkusWithStock(recepcion)
     p "1"
@@ -514,17 +514,17 @@ def self.vaciarRecepcion()
 
 def self.vaciarPulmon()
 
-    if Rails.env.production?
+    #if Rails.env.production?
     	recepcion = "572aad41bdb6d403005fb4b8"
     	general1 = "572aad41bdb6d403005fb4ba"
     	general2 = "572aad41bdb6d403005fb540"
     	pulmon = "572aad41bdb6d403005fb541"   
-    else
-    	recepcion = "571262aaa980ba030058a3b0"    
-    	general1 = "571262aaa980ba030058a3b2"     
-    	general2 = "571262aaa980ba030058a40a"     
-    	pulmon = "571262aaa980ba030058a40b"       
-   	end
+    #else
+    #	recepcion = "571262aaa980ba030058a3b0"    
+    #	general1 = "571262aaa980ba030058a3b2"     
+    #	general2 = "571262aaa980ba030058a40a"     
+    #	pulmon = "571262aaa980ba030058a40b"       
+   	#end
 
     productosRecepcion = getSkusWithStock(pulmon)
     p "1"
