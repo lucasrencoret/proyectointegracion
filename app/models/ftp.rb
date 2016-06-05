@@ -13,7 +13,7 @@ def self.ultimo_tiempo()
 end
 
 def self.testing()
-      puts 'Salcedo es un gil'
+      puts 'Lucas es un gil'
 end
 
 def self.prueba_basedatos()
@@ -29,10 +29,18 @@ def self.prueba_basedatos()
 end
 
 def self.conecta()
+
+  if Rails.env.production?
     host = 'moto.ing.puc.cl'
     port = '22'
     user = 'integra9'
     password = 'kZFEEuk8'
+  else 
+    host = 'mare.ing.puc.cl'
+    port = '22'
+    user = 'integra9'
+    password = 'cdFybj2t'
+  end
     
     tiempo_mayor_local = tiempo_inicio
     
