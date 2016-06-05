@@ -16,7 +16,7 @@ class BoletasController < ApplicationController
     
     #Oc.recepcionarOc(id_boleta) #aceptar orden de compra de consumidor. NO SE SI VA O NO??
     Bodega.moverInsumo(sku, cantidad) #mover los insumos
-    Factura.crearBoleta(proveedor, cliente, total_plata) #emitir la boleta
+    #Factura.crearBoleta(proveedor, cliente, total_plata) #emitir la boleta
     Bodega.despacharPedidoB2c(sku, cantidad, direccion, total_plata, id_boleta)
     
     
