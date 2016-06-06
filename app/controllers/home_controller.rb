@@ -10,6 +10,10 @@ class HomeController < ApplicationController
 	def almacen
 		@almacenes = Bodega.getAlmacenes()
 	end
+  def boletas
+  	@boletas = B2c
   
+
+  end
   
 end

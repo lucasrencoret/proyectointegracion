@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'api/ids/almacenId' => 'bodega#idAlmacen'
   get '/doc' => 'home#doc'
   get '/almacen' => 'home#almacen'
+   get '/boletas' => 'home#boletas'
   resources :ocs
 
   #resources :ocs

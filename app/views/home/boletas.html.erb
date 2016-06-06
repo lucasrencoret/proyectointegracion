@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+</style>
+</head>
+<body>
+
+
+<h3>Boletas en Sistema </h3>
+
+
+<table style="width:100%">
+  <tr>
+    <th>cliente</th>
+    <th>proveedor</th>
+    <th>bruto</th>
+    <th>IVA</th>
+    <th>total</th>
+    <th>id boleta</th>
+    <th>sku</th>
+    <th>cantidad</th>
+    <th>direccion</th>
+  </tr>
+<% @boletas.each do |boleta|  %>
+  <tr>
+    <td><%= boleta.cliente %></td>
+    <td><%= boleta.proveedor %></td>
+    <td><%= boleta.bruto %></td>
+    <td><%= boleta.iva %></td>
+    <td><%= boleta.total %></td>
+    <td><%= boleta._id %></td>
+    <td><%= boleta.sku %></td>
+    <td><%= boleta.cantidad %></td>
+    <td><%= boleta.direccion %></td>
+     
+   
+    
+  </tr>
+  <% end %>
+</table>
+
+
+<p><%= link_to "Volver al inicio", "/home/index" %></p>
+</body>
+</html>
