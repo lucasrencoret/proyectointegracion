@@ -70,10 +70,10 @@ def self.getSkusWithStock(almacenId)
 end
 
 def self.getStock(almacenId, sku) #devuelve todos los productos de un sku que estan en un almacen
-	header = crear_string("GET"+almacenId+sku)
+	header = crear_string("GET"+almacenId.to_s+sku.to_s)
 	
 	#if Rails.env.production?
-		buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read
+		buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/stock?almacenId='+almacenId.to_s+"&sku="+sku.to_s, "Content-Type"=>"application/json", "Authorization" => header).read
 	#else
 	#	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read
 	#end
@@ -134,7 +134,7 @@ def self.moveStockBodega(productoid,almacenid, oc, precio) #AlmacÃ©n de recepciÃ
 end
 
 def self.despacharStock(productoId, direccion, precio, oc)
-	header = crear_string("DELETE"+productoId+direccion+precio+oc)
+	header = crear_string("DELETE"+productoId.to_s+direccion.to_s+precio.to_s+oc.to_s)
 	#respuesta = RestClient.delete , {:productoId => productoId.to_s, :direccion => direccion.to_s, :precio => precio.to_i, :oc => oc.to_s}.to_json, :Authorization => header, :content_type=> 'application/x-www-form-urlencoded'
 	puts header
 	
