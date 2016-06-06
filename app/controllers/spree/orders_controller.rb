@@ -70,8 +70,8 @@ module Spree
         else
           total = 5052*quantity
         end
-        
-        respuesta = Factura.crearBoleta("571262b8a980ba030058ab57", "cliente", total)
+        # 572aac69bdb6d403005fb04a produccion. 571262b8a980ba030058ab57 desarrollo.
+        respuesta = Factura.crearBoleta("572aac69bdb6d403005fb04a", "cliente", total)
         respuesta_model = B2c.create(:cliente => respuesta['cliente'], :proveedor => respuesta['proveedor'], :bruto => respuesta['bruto'], :iva => respuesta['iva'], :total => respuesta['total'], :_id => respuesta['_id'], :estado => respuesta['estado'], :direccion => direccion, :sku => sku, :cantidad => quantity)
         puts respuesta_model
         
