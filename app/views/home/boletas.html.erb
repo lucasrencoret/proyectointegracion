@@ -30,6 +30,7 @@ th, td {
     <th>cantidad</th>
     <th>direccion</th>
   </tr>
+<% if @boletas? %>
 <% @boletas.each do |boleta|  %>
   <tr>
     <td><%= boleta.cliente %></td>
@@ -41,7 +42,7 @@ th, td {
     <td><%= boleta.sku %></td>
     <td><%= boleta.cantidad %></td>
     <td><%= boleta.direccion %></td>
-     
+<% end %>
    
     
   </tr>
