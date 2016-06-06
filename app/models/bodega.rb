@@ -70,7 +70,7 @@ def self.getSkusWithStock(almacenId)
 end
 
 def self.getStock(almacenId, sku) #devuelve todos los productos de un sku que estan en un almacen
-	header = crear_string("GET"+almacenId.to_s+sku.to_i)
+	header = crear_string("GET"+almacenId+sku)
 	
 	#if Rails.env.production?
 		buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read

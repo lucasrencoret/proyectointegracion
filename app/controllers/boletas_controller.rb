@@ -14,7 +14,7 @@ class BoletasController < ApplicationController
     proveedor = @boleta.proveedor
     cliente = @boleta.cliente
     #Oc.recepcionarOc(id_boleta) #aceptar orden de compra de consumidor. NO SE SI VA O NO??
-    Bodega.moverInsumo(sku, cantidad) #mover los insumos
+    Bodega.moverInsumo(sku.to_i, cantidad) #mover los insumos
     #Factura.crearBoleta(proveedor, cliente, total_plata) #emitir la boleta
     Bodega.despacharPedidoB2c(sku, cantidad, direccion, total_plata, id_boleta)
     @boleta.estado = "confirmada"
