@@ -11,7 +11,7 @@ class HomeController < ApplicationController
 		@almacenes = Bodega.getAlmacenes()
 	end
   def boletas
-  	@boletas = B2c.all
+  	@boletas = B2c.find_by(estado: "confirmada")
   
 
   end
