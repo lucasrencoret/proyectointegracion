@@ -1,0 +1,153 @@
+@font-face {
+    font-family: 'icomoon';
+    src:    url('fonts/icomoon.eot?o5247e');
+    src:    url('fonts/icomoon.eot?o5247e#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?o5247e') format('truetype'),
+        url('fonts/icomoon.woff?o5247e') format('woff'),
+        url('fonts/icomoon.svg?o5247e#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-home3:before {
+    content: "\e900";
+}
+.icon-cart:before {
+    content: "\e901";
+}
+.icon-credit-card:before {
+    content: "\e902";
+}
+.icon-clock:before {
+    content: "\e903";
+}
+.icon-calendar:before {
+    content: "\e904";
+}
+.icon-undo2:before {
+    content: "\e905";
+}
+.icon-cog:before {
+    content: "\e906";
+}
+.icon-stats-bars2:before {
+    content: "\e907";
+}
+.icon-bin:before {
+    content: "\e908";
+}
+.icon-menu:before {
+    content: "\e909";
+}
+
+*{
+
+	margin:0;
+	padding:0;
+}
+
+body {
+
+	background: "FFFFFA";
+}
+
+header{
+	width:100%;
+}
+
+header nav
+{
+width:90%;
+max-width: 1000px;
+margin:20px auto;
+background: #024959;
+
+
+}
+
+.menu_bar {
+	display: none;
+}
+
+header nav ul{
+	overflow: hidden;
+	list-style: none;
+}
+
+header nav ul p {
+	float:left;
+
+}
+
+header nav ul p a{
+	color:#fff;
+	padding: 20px;
+	display: block;
+	text-decoration: none;
+
+}
+
+header nav ul p span{
+
+	margin-right:10px;
+}
+
+header nav ul p a:hover{
+	background: #037E8C
+}
+section{
+	padding: 20px;
+}
+
+@media screen and (max-width: 800px ){
+	header nav{
+		width: 80%;
+		height: 100%;
+		margin: 0;
+		position: fixed;
+	}
+
+	header nav ul {
+		display:block;
+		float:none;
+		border-bottom:1px solid rgba(255,255,255, .3);
+	}
+	.menu_bar{
+		display:block;
+		width: 100%;
+		background: #ccc;
+	}
+	.menu_bar
+
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ */
+
