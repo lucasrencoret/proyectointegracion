@@ -12,4 +12,8 @@ end
 
 	client.update_with_media("text", open("http://e03-elmundo.uecdn.es/assets/multimedia/imagenes/2015/11/13/14474300157302.jpg"))
   end
+
+  @graph = Koala::Facebook::API.new("EAAOZBw81vhr8BALLLv09Vck2t5DqX92YZC3RFjbewiV4WwHly1PUPZA8ENV1IyIdUWAsmww4MEwFU1r7lPxpHno28TRylBDSFYRZBZCMeMWjUAnfFSJ236MxcuUluIaNgPXR1Cs3hh72LzmnXoViV2XLHFQxqxkTtleccWXJTnAZDZD")
+  @graph.put_wall_post("text",{link:"http://e03-elmundo.uecdn.es/assets/multimedia/imagenes/2015/11/13/14474300157302.jpg"})
+
 end

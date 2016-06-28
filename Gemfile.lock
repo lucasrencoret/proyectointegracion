@@ -140,6 +140,10 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    koala (2.3.0)
+      addressable
+      faraday
+      multi_json
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -377,6 +381,7 @@ DEPENDENCIES
   groupdate
   jbuilder (~> 2.0)
   jquery-rails
+  koala (~> 2.2)
   mysql
   net-sftp
   net-ssh
