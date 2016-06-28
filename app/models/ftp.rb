@@ -135,7 +135,11 @@ def self.conecta()
                               Factura.emitirFactura(orden_id.to_s)
                               #puts "emitida la factura"
                               Bodega.despacharPedido(orden_id, orden_sku, orden_qty, orden_precio.to_s)
-                              ingresar_orden = Oc.create(:name => orden_id)
+                              #ACA HACER EL GET PARA PONER EN OC.CREATE
+                              orden_ = Oc.getOc(orden_id)
+                              tipo = orden_['canal']
+                              total = orden_precio*orden_qty
+                              ingresar_orden = Oc.create(:name => orden_id, :tipo => tipo, :total =>total)
                               puts "aceptar orden"
                               
                               

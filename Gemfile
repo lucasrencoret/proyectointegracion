@@ -30,6 +30,8 @@ gem 'sinatra'
 gem 'net-ssh'
 gem 'net-sftp'
 gem 'typhoeus'
+gem 'groupdate'
+gem "chartkick"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

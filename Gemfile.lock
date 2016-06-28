@@ -63,6 +63,7 @@ GEM
       rails (>= 3.1, < 5.0)
     carmen (1.0.2)
       activesupport (>= 3.0.0)
+    chartkick (2.0.0)
     cldr-plurals-runtime-rb (1.0.1)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -108,6 +109,8 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    groupdate (3.0.0)
+      activesupport (>= 3)
     highline (1.6.21)
     htmlentities (4.3.4)
     http-cookie (1.0.2)
@@ -342,7 +345,9 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  chartkick
   coffee-rails (~> 4.1.0)
+  groupdate
   jbuilder (~> 2.0)
   jquery-rails
   mysql

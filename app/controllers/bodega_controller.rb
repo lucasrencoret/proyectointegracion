@@ -28,7 +28,10 @@ class BodegaController < ApplicationController
        #       idFac = factura['_id']
   
        #       numGrupo = B2b.obtenerGrupo(cliente)
-       #       ingresar_orden = Oc.create(:name => params[:idoc])
+       #       orden_ = Oc.getOc(params[:idoc])
+       #       tipo = orden_['canal']
+       #       total = precioU*cantidad
+       #       ingresar_orden = Oc.create(:name => params[:idoc], :tipo => tipo, :total => total)
        #       Thread.new do
        #       sleep(50)
        #       buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/facturas/'+ idFac.to_s , "Content-Type"=>"application/json").read
@@ -47,7 +50,11 @@ class BodegaController < ApplicationController
               idFac = factura['_id']
   
               numGrupo = B2b.obtenerGrupo(cliente)
-              ingresar_orden = Oc.create(:name => params[:idoc])
+              #ACA HACER EL GET Y INSERTAR AL INGRESAR LA ORDEN
+              orden_ = Oc.getOc(params[:idoc])
+              tipo = orden_['canal']
+              total = precioU*cantidad
+              ingresar_orden = Oc.create(:name => params[:idoc], :tipo => tipo, :total => total)
               Thread.new do
               sleep(50)
               buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/facturas/'+ idFac.to_s , "Content-Type"=>"application/json").read
