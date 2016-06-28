@@ -44,6 +44,7 @@ GEM
     acts_as_list (0.7.2)
       activerecord (>= 3.0)
     addressable (2.4.0)
+    amq-protocol (2.0.1)
     arel (6.0.3)
     autoprefixer-rails (6.3.6.2)
       execjs
@@ -56,6 +57,8 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.2)
+    bunny (2.4.0)
+      amq-protocol (>= 2.0.1)
     byebug (9.0.5)
     camertron-eprun (1.1.0)
     cancancan (1.10.1)
@@ -344,6 +347,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bunny
   byebug
   chartkick
   coffee-rails (~> 4.1.0)

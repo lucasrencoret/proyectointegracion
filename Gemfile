@@ -38,6 +38,9 @@ gem "chartkick"
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+#Gemas AMQP
+gem 'bunny'
+
 # Spree Gems
 gem 'spree', '~> 3.1.0.rc1'
 gem 'spree_auth_devise', '~> 3.1.0.rc1'
