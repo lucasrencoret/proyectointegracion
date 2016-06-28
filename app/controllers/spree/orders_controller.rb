@@ -72,13 +72,17 @@ module Spree
           total = 5052*quantity
         end
         # 572aac69bdb6d403005fb04a produccion. 571262b8a980ba030058ab57 desarrollo.
-        respuesta = Factura.crearBoleta("572aac69bdb6d403005fb04a", cliente, total)
+        #respuesta = Factura.crearBoleta("572aac69bdb6d403005fb04a", cliente, total)
+        respuesta = Factura.crearBoleta("571262b8a980ba030058ab57", cliente, total)
         respuesta_model = B2c.create(:cliente => respuesta['cliente'], :proveedor => respuesta['proveedor'], :bruto => respuesta['bruto'], :iva => respuesta['iva'], :total => respuesta['total'], :_id => respuesta['_id'], :estado => respuesta['estado'], :direccion => direccion, :sku => sku, :cantidad => quantity)
         puts respuesta_model
         
-        url_ok = "http%3A%2F%2Fintegra9.ing.puc.cl/tienda/ok/"+respuesta['_id']
-        url_fail = "http%3A%2F%2Fintegra9.ing.puc.cl/tienda/fail/"
-        url = "http://integracion-2016-prod.herokuapp.com/web/pagoenlinea?callbackUrl="+url_ok+"&cancelUrl="+url_fail+"+&boletaId="+respuesta['_id']
+        #url_ok = "http%3A%2F%2Fintegra9.ing.puc.cl/tienda/ok/"+respuesta['_id']
+        #url_fail = "http%3A%2F%2Fintegra9.ing.puc.cl/tienda/fail/"
+        #url = "http://integracion-2016-prod.herokuapp.com/web/pagoenlinea?callbackUrl="+url_ok+"&cancelUrl="+url_fail+"+&boletaId="+respuesta['_id']
+        url_ok = "localhost:3000/tienda/ok/"+respuesta['_id']
+        url_fail = "localhost:3000/tienda/fail/"
+        url = "http://integracion-2016-dev.herokuapp.com/web/pagoenlinea?callbackUrl="+url_ok+"&cancelUrl="+url_fail+"+&boletaId="+respuesta['_id']
         
         redirect_to url
       end
