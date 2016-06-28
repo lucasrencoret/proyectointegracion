@@ -35,7 +35,8 @@
 
 
 
-
+<div >
+<h1> Facturacion </h1>
 <div class="col-xs-6">
     <h3>Facturacion diaria de Boletas</h3>
     <%= line_chart @b2cs.group_by_day(:created_at).count %>
@@ -48,12 +49,54 @@
 
   <div class="col-xs-6">
     <h3>Facturacion diaria por FTP y B2B en pesos</h3>
-    <%= line_chart @ocs.group(:total).group_by_day(:created_at).count %>
+    <%= line_chart @ocs.group_by_day(:created_at).sum(:total) %>
   </div>
 
   <div class="col-xs-6">
-    <h3>Facturacion diaria de Boletas</h3>
+    <h3>Facturacion diaria de Boletas en pesos</h3>
+    <%= line_chart @b2cs.group_by_day(:created_at).sum(:total) %>
+  </div>
+</div>
+
+<div >
+<h1> Logistica </h1>
+<div class="col-xs-6">
+    <h3>Stock diario de cada sku</h3>
     <%= line_chart @b2cs.group_by_day(:created_at).count %>
   </div>
+
+
+  <div class="col-xs-6">
+    <h3>Estado de uso de los almacenes</h3>
+    <%= pie_chart({"Despacho" => @Espacio_Usado_despacho, "Recepcion" => @Espacio_Usado_recepcion, "Pulmon" => @Espacio_Usado_pulmon, "General1" => @Espacio_Usado_general1, "General2" => @Espacio_Usado_general2}) %>
+  </div>
+
+  <div class="col-xs-6">
+    <h3>Uso del almacen Recepcion</h3>
+    <%= pie_chart({"Usado" => @Espacio_Usado_recepcion, "Disponible" => @Espacio_Total_recepcion}) %>
+  </div>
+
+  <div class="col-xs-6">
+    <h3>Uso del almacen Pulmon</h3>
+    <%= pie_chart({"Usado" => @Espacio_Usado_pulmon, "Disponible" => @Espacio_Total_pulmon}) %>
+    </div>
+
+  <div class="col-xs-6">
+    <h3>Uso del almacen Despacho</h3>
+    <%= pie_chart({"Usado" => @Espacio_Usado_despacho, "Disponible" => @Espacio_Total_despacho}) %>
+    </div>
+
+  <div class="col-xs-6">
+    <h3>Uso del almacen General1</h3>
+    <%= pie_chart({"Usado" => @Espacio_Usado_general1, "Disponible" => @Espacio_Total_general1}) %>
+    </div>
+
+  <div class="col-xs-6">
+    <h3>Uso del almacen General2</h3>
+    <%= pie_chart({"Usado" => @Espacio_Usado_general2, "Disponible" => @Espacio_Total_general2}) %>
+    </div>
+  
+</div>
+
 
 </div>
