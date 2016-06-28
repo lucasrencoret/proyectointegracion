@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'twitter/index'
+
+  get 'twitter/publish'
+
   get 'tienda/ok/:_id' => 'boletas#ok'
 
   get 'tienda/fail' => 'boletas#fail'
