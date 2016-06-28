@@ -22,7 +22,26 @@ class BodegaController < ApplicationController
        
 
        #if Rails.env.production?
-         if (stock >= cantidad && proveedor="572aac69bdb6d403005fb04a" && preciocorrecto =true)  
+       #  if (stock >= cantidad && proveedor="572aac69bdb6d403005fb04a" && preciocorrecto =true)  
+       #       Oc.recepcionarOc(params[:idoc])
+       #       factura = Factura.emitirFactura(params[:idoc])
+       #       idFac = factura['_id']
+  
+       #       numGrupo = B2b.obtenerGrupo(cliente)
+       #       ingresar_orden = Oc.create(:name => params[:idoc])
+       #       Thread.new do
+       #       sleep(50)
+       #       buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/facturas/'+ idFac.to_s , "Content-Type"=>"application/json").read
+	     #    resultado = JSON.parse(buffer)
+       #        print resultado
+       #       end
+       #       render :json => { "aceptado" => true , "idoc" => params[:idoc] }
+       #   else
+       #       render :json => { "aceptado" => false , "idoc" => params[:idoc] }
+       #   end
+
+       #else
+         if (stock >= cantidad && proveedor="571262b8a980ba030058ab57" && preciocorrecto =true)  
               Oc.recepcionarOc(params[:idoc])
               factura = Factura.emitirFactura(params[:idoc])
               idFac = factura['_id']
@@ -32,32 +51,13 @@ class BodegaController < ApplicationController
               Thread.new do
               sleep(50)
               buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/facturas/'+ idFac.to_s , "Content-Type"=>"application/json").read
-	         resultado = JSON.parse(buffer)
-               print resultado
+              resultado = JSON.parse(buffer)
+              print resultado
               end
-              render :json => { "aceptado" => true , "idoc" => params[:idoc] }
-          else
+              render :json => { "aceptado" => true , "idoc" => params[:idoc] }  
+         else
               render :json => { "aceptado" => false , "idoc" => params[:idoc] }
-          end
-
-       #else
-          #if (stock >= cantidad && proveedor="571262b8a980ba030058ab57" && preciocorrecto =true)  
-          #    Oc.recepcionarOc(params[:idoc])
-          #    factura = Factura.emitirFactura(params[:idoc])
-          #    idFac = factura['_id']
-  
-          #    numGrupo = B2b.obtenerGrupo(cliente)
-          #    ingresar_orden = Oc.create(:name => params[:idoc])
-          #    Thread.new do
-          #    sleep(50)
-          #    buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/facturas/'+ idFac.to_s , "Content-Type"=>"application/json").read
-          # resultado = JSON.parse(buffer)
-          #     print resultado
-          #    end
-          #    render :json => { "aceptado" => true , "idoc" => params[:idoc] }  
-         #else
-          #    render :json => { "aceptado" => false , "idoc" => params[:idoc] }
-         #end
+         end
 
        #end
 
@@ -65,9 +65,9 @@ class BodegaController < ApplicationController
    def entregarCuenta
 
         #if Rails.env.production?
-          render :json => { "idGrupo" => "572aac69bdb6d403005fb04a" , "idCuentaBanco" => "572aac69bdb6d403005fb057" }   
+        #  render :json => { "idGrupo" => "572aac69bdb6d403005fb04a" , "idCuentaBanco" => "572aac69bdb6d403005fb057" }   
         #else
-        #  render :json => { "idGrupo" => "571262b8a980ba030058ab57" , "idCuentaBanco" => "571262c3a980ba030058ab66" }
+          render :json => { "idGrupo" => "571262b8a980ba030058ab57" , "idCuentaBanco" => "571262c3a980ba030058ab66" }
         #end
    end
   
@@ -79,9 +79,9 @@ class BodegaController < ApplicationController
       idBanco = B2b.obtenerBanco(grupoId) # banco del grupo proveedor
       
       #if Rails.env.production?
-        transferencia = Banco.transferir(monto,"572aac69bdb6d403005fb057",idBanco) 
+      #  transferencia = Banco.transferir(monto,"572aac69bdb6d403005fb057",idBanco) 
       #else
-      #  transferencia = Banco.transferir(monto,"571262c3a980ba030058ab66",idBanco) 
+        transferencia = Banco.transferir(monto,"571262c3a980ba030058ab66",idBanco) 
       #end
       
       idTransaccion = transferencia['idtrx'] 
@@ -119,7 +119,7 @@ class BodegaController < ApplicationController
       end
         render :json => { "validado" => true , "idtrx" => params[:idtrx] }
       else 
-      render :json => { "validado" => false , "idtrx" => params[:idtrx] }
+        render :json => { "validado" => false , "idtrx" => params[:idtrx] }
       end
 end
    

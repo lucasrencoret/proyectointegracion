@@ -45,6 +45,7 @@ module Spree
       quantity = params[:quantity].to_i
       options  = params[:options] || {}
       direccion = params[:direccion]
+      cliente = params[:name]
       sku = params[:sku]
       
       
@@ -71,7 +72,7 @@ module Spree
           total = 5052*quantity
         end
         # 572aac69bdb6d403005fb04a produccion. 571262b8a980ba030058ab57 desarrollo.
-        respuesta = Factura.crearBoleta("572aac69bdb6d403005fb04a", "cliente", total)
+        respuesta = Factura.crearBoleta("572aac69bdb6d403005fb04a", cliente, total)
         respuesta_model = B2c.create(:cliente => respuesta['cliente'], :proveedor => respuesta['proveedor'], :bruto => respuesta['bruto'], :iva => respuesta['iva'], :total => respuesta['total'], :_id => respuesta['_id'], :estado => respuesta['estado'], :direccion => direccion, :sku => sku, :cantidad => quantity)
         puts respuesta_model
         
