@@ -34,14 +34,16 @@ th, td {
   </tr>
 <% @ordenes.each do |orden|  %>
   <tr>
+    
     <% ordenes = Oc.getOc(orden).first %>
+    <% if ordenes %>
     <td><%= ordenes['_id'] %></td>
-    <td><%=ordenes['canal'] %></td> 
-    <td><%=ordenes['cliente'] %></td> 
-    <td><%=ordenes['cantidad'] %></td> 
-    <td><%=ordenes['precioUnitario'] %></td> 
+    <td><%=ordenes['canal'] %></td>
+    <td><%=ordenes['cliente'] %></td>
+    <td><%=ordenes['cantidad'] %></td>
+    <td><%=ordenes['precioUnitario'] %></td>
     <td><%=ordenes['estado'] %></td> 
-   
+    <% end %>
     
   </tr>
   <% end %>

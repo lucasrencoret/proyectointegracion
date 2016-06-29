@@ -43,21 +43,6 @@ ActiveRecord::Schema.define(version: 20160629154244) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "boleta", force: :cascade do |t|
-    t.string   "cliente",    limit: 255
-    t.string   "proveedor",  limit: 255
-    t.integer  "bruto",      limit: 4
-    t.integer  "iva",        limit: 4
-    t.integer  "total",      limit: 4
-    t.string   "_id",        limit: 255
-    t.string   "estado",     limit: 255
-    t.string   "direccion",  limit: 255
-    t.integer  "sku",        limit: 4
-    t.integer  "cantidad",   limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "cuenta", force: :cascade do |t|
     t.integer  "saldo",      limit: 4
     t.datetime "created_at",           null: false
@@ -1161,5 +1146,31 @@ ActiveRecord::Schema.define(version: 20160629154244) do
 
   add_index "spree_zones", ["default_tax"], name: "index_spree_zones_on_default_tax", using: :btree
   add_index "spree_zones", ["kind"], name: "index_spree_zones_on_kind", using: :btree
+
+  create_table "time_zone", primary_key: "Time_zone_id", force: :cascade do |t|
+    t.string "Use_leap_seconds", limit: 1, default: "N", null: false
+  end
+
+  create_table "time_zone_leap_second", primary_key: "Transition_time", force: :cascade do |t|
+    t.integer "Correction", limit: 4, null: false
+  end
+
+  create_table "time_zone_name", primary_key: "Name", force: :cascade do |t|
+    t.integer "Time_zone_id", limit: 4, null: false
+  end
+
+  create_table "time_zone_transition", id: false, force: :cascade do |t|
+    t.integer "Time_zone_id",       limit: 4, null: false
+    t.integer "Transition_time",    limit: 8, null: false
+    t.integer "Transition_type_id", limit: 4, null: false
+  end
+
+  create_table "time_zone_transition_type", id: false, force: :cascade do |t|
+    t.integer "Time_zone_id",       limit: 4,              null: false
+    t.integer "Transition_type_id", limit: 4,              null: false
+    t.integer "Offset",             limit: 4, default: 0,  null: false
+    t.integer "Is_DST",             limit: 1, default: 0,  null: false
+    t.string  "Abbreviation",       limit: 8, default: "", null: false
+  end
 
 end
