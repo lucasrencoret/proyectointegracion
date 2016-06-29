@@ -6,12 +6,19 @@ class Banco < ActiveRecord::Base
 def self.obtenerCuenta(cuentaId)
 	
 	#if Rails.env.production?
-	#	buffer = open('http://moto.ing.puc.cl/banco/cuenta/'+cuentaId , "Content-Type"=>"application/json").read
+		buffer = open('http://moto.ing.puc.cl/banco/cuenta/'+cuentaId , "Content-Type"=>"application/json").read
 	#else
-		buffer = open('http://mare.ing.puc.cl/banco/cuenta/'+cuentaId , "Content-Type"=>"application/json").read
+	#	buffer = open('http://mare.ing.puc.cl/banco/cuenta/'+cuentaId , "Content-Type"=>"application/json").read
 	#end
 
 	resultado = JSON.parse(buffer)
+
+end
+
+def self.ingresar_cuenta()
+	cuenta = obtenerCuenta("572aac69bdb6d403005fb057").first #en produccion
+	estado_cuenta = cuenta['saldo']
+	Cuentum.create(:saldo => estado_cuenta)
 
 end
 def self.obtenerTransaccion(id)

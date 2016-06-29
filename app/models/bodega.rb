@@ -109,6 +109,23 @@ def self.getStockProducto(sku_request)
 	end
 	stock
 end
+
+def self.insertar_stock_tabla()
+	stock_20 = getStockProducto("20")
+	Estado.create(:sku => "20", :stock => stock_20)
+
+	stock_46 = getStockProducto("46")
+	Estado.create(:sku => "46", :stock => stock_46)
+
+	stock_48 = getStockProducto("48")
+	Estado.create(:sku => "48", :stock => stock_48)
+
+	stock_56 = getStockProducto("56")
+	Estado.create(:sku => "56", :stock => stock_56)
+
+
+end
+
 def self.moveStock(productoid,almacenid) #almacen de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
 	

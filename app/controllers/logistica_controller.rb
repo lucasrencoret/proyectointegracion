@@ -33,8 +33,8 @@ def index
             @Espacio_Usado_general2 = almacen['usedSpace']
         end
     end
-
-
+    @stocks = Estado.all
+    @cuenta = Cuentum.all
 end
 
 end

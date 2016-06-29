@@ -40,7 +40,14 @@
  every 30.minutes do
    runner "Bodega.vaciarRecepcion", :environment => "development", :output => 'log/check_status_vaciarrecepcion.log'
  end
+ every 60.minutes do
+   runner "Bodega.insertar_stock_tabla", :environment => "development"
+ end
+ every 60.minutes do
+   runner "Banco.ingresar_cuenta", :environment => "development"
+ end
 every 10.minutes do
    runner "Promo.cronjob", :environment => "development", :output => 'log/promo.log'
  end
+
 # Learn more: http://github.com/javan/whenever
