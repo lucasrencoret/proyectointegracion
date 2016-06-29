@@ -18,13 +18,13 @@ def self.encrypt(texto)
 	key = texto
 
 	#if Rails.env.production?
-	#	data = 'ZC$&k:.gFIZ&pyp'   #PENDIENTE esto cambia segun dev o prod o no ?
-	#	OpenSSL::HMAC.digest('SHA1',data,key)
-	#	Base64.strict_encode64 OpenSSL::HMAC.digest('SHA1',data,key)
-	#else
-		data = 'WqhY79mm3N4ph6'   #PENDIENTE esto cambia segun dev o prod o no ?
+		data = 'ZC$&k:.gFIZ&pyp'   #PENDIENTE esto cambia segun dev o prod o no ?
 		OpenSSL::HMAC.digest('SHA1',data,key)
 		Base64.strict_encode64 OpenSSL::HMAC.digest('SHA1',data,key)
+	#else
+	#	data = 'WqhY79mm3N4ph6'   #PENDIENTE esto cambia segun dev o prod o no ?
+	#	OpenSSL::HMAC.digest('SHA1',data,key)
+	#	Base64.strict_encode64 OpenSSL::HMAC.digest('SHA1',data,key)
 	#end
 end
 
@@ -37,9 +37,9 @@ def self.getAlmacenes () #entrega informacion sobre los almacenes de la bodega s
 	header = crear_string("GET")
 	
 	#if Rails.env.production?
-	#	buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
+		buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
 	#else
-		buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
+	#	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/almacenes', "Content-Type"=>"application/json", "Authorization" => header).read
 	#end
 
 	resultado = JSON.parse(buffer)
@@ -60,9 +60,9 @@ def self.getSkusWithStock(almacenId)
 	header = crear_string("GET" + almacenId)
 	
 	#if Rails.env.production?
-	#	buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/skusWithStock?almacenId='+almacenId , "Content-Type"=>"application/json", "Authorization" => header).read
+		buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/skusWithStock?almacenId='+almacenId , "Content-Type"=>"application/json", "Authorization" => header).read
 	#else
-		buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/skusWithStock?almacenId='+almacenId , "Content-Type"=>"application/json", "Authorization" => header).read
+	#	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/skusWithStock?almacenId='+almacenId , "Content-Type"=>"application/json", "Authorization" => header).read
 	#end
 
 	resultado = JSON.parse(buffer)
@@ -73,9 +73,9 @@ def self.getStock(almacenId, sku) #devuelve todos los productos de un sku que es
 	header = crear_string("GET"+almacenId.to_s+sku.to_s)
 	
 	#if Rails.env.production?
-	#	buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/stock?almacenId='+almacenId.to_s+"&sku="+sku.to_s, "Content-Type"=>"application/json", "Authorization" => header).read
+		buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/stock?almacenId='+almacenId.to_s+"&sku="+sku.to_s, "Content-Type"=>"application/json", "Authorization" => header).read
 	#else
-		buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read
+	#	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/stock?almacenId='+almacenId+"&sku="+sku, "Content-Type"=>"application/json", "Authorization" => header).read
 	#end
 
 	resultado = JSON.parse(buffer)
@@ -130,9 +130,9 @@ def self.moveStock(productoid,almacenid) #almacen de destino
 	autorizacion =crear_string("POST"+productoid+almacenid)
 	
 	#if Rails.env.production?
-	#	response = RestClient.post 'http://integracion-2016-prod.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+		response = RestClient.post 'http://integracion-2016-prod.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 	#else
-		response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	#	response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStock', {:productoId => productoid, :almacenId => almacenid}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 	#end
 
 	resultado = JSON.parse(response)
@@ -142,9 +142,9 @@ def self.moveStockBodega(productoid,almacenid, oc, precio) #AlmacÃ©n de recepciÃ
 	autorizacion =crear_string("POST"+productoid+almacenid)
 	
 	#if Rails.env.production?
-	#	response = RestClient.post 'http://integracion-2016-prod.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid, :oc => oc, :precio => precio}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+		response = RestClient.post 'http://integracion-2016-prod.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid, :oc => oc, :precio => precio}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 	#else
-		response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid, :oc => oc, :precio => precio}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+	#	response = RestClient.post 'http://integracion-2016-dev.herokuapp.com/bodega/moveStockBodega', {:productoId => productoid, :almacenId => almacenid, :oc => oc, :precio => precio}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 	#end 
 
 	resultado = JSON.parse(response)
@@ -156,15 +156,15 @@ def self.despacharStock(productoId, direccion, precio, oc)
 	puts header
 	
 	#if Rails.env.production?
-	#	respuesta = Typhoeus::Request.new('http://integracion-2016-prod.herokuapp.com/bodega/stock', 
-	#	method: :delete, 
-	#	body: {productoId: productoId.to_s, direccion:  direccion.to_s, precio: precio.to_i, oc: oc.to_s}, 
-	#	headers: {'Content-Type' => "application/x-www-form-urlencoded",'Authorization' => header})
-	#else
-		respuesta = Typhoeus::Request.new('http://integracion-2016-dev.herokuapp.com/bodega/stock', 
+		respuesta = Typhoeus::Request.new('http://integracion-2016-prod.herokuapp.com/bodega/stock', 
 		method: :delete, 
 		body: {productoId: productoId.to_s, direccion:  direccion.to_s, precio: precio.to_i, oc: oc.to_s}, 
 		headers: {'Content-Type' => "application/x-www-form-urlencoded",'Authorization' => header})
+	#else
+	#	respuesta = Typhoeus::Request.new('http://integracion-2016-dev.herokuapp.com/bodega/stock', 
+	#	method: :delete, 
+	#	body: {productoId: productoId.to_s, direccion:  direccion.to_s, precio: precio.to_i, oc: oc.to_s}, 
+	#	headers: {'Content-Type' => "application/x-www-form-urlencoded",'Authorization' => header})
 	#end
 
 	  return respuesta
@@ -255,9 +255,9 @@ def self.producirStock(sKu, trxid, cAntidad)
 	autorizacion =crear_string("PUT"+stringSku+stringCantidad+trxid)
 	
 	#if Rails.env.production?
-	#	response = RestClient.put 'http://integracion-2016-prod.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
+		response = RestClient.put 'http://integracion-2016-prod.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'
 	#else
-		response = RestClient.put 'http://integracion-2016-dev.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'		
+	#	response = RestClient.put 'http://integracion-2016-dev.herokuapp.com/bodega/fabrica/fabricar', {:sku => sKu, :trxId => trxid, :cantidad => cAntidad}.to_json, :Authorization => autorizacion, :content_type=> 'application/json'		
 	#end
 
 	resultado = JSON.parse(response)
@@ -267,9 +267,9 @@ def self.getCuentaFabrica () #entrega la cuenta id de la fabrica
 	header = crear_string("GET")
 	
 	#if Rails.env.production?
-	#	buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read
+		buffer = open('http://integracion-2016-prod.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read
 	#else
-		buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read		
+	#	buffer = open('http://integracion-2016-dev.herokuapp.com/bodega/fabrica/getCuenta', "Content-Type"=>"application/json", "Authorization" => header).read		
 	#end
 
 	resultado = JSON.parse(buffer)
@@ -395,9 +395,9 @@ def self.pagarFabricacion(precio)
 	idCuentaF = jsonCuenta['cuentaId']
 	
 	#if Rails.env.production?
-	#	response = Banco.transferir(precio,"572aac69bdb6d403005fb057",idCuentaF)  
+		response = Banco.transferir(precio,"572aac69bdb6d403005fb057",idCuentaF)  
 	#else 
-		response = Banco.transferir(precio,"571262c3a980ba030058ab66",idCuentaF)  
+	#	response = Banco.transferir(precio,"571262c3a980ba030058ab66",idCuentaF)  
 	#end
 
 	response["_id"]
@@ -481,16 +481,16 @@ end
 def self.vaciarRecepcion()
 
 	#if Rails.env.production?
-    #	recepcion = "572aad41bdb6d403005fb4b8"
-    #	general1 = "572aad41bdb6d403005fb4ba"
-    #	general2 = "572aad41bdb6d403005fb540"
-    #	pulmon = "572aad41bdb6d403005fb541"   
+    	recepcion = "572aad41bdb6d403005fb4b8"
+    	general1 = "572aad41bdb6d403005fb4ba"
+    	general2 = "572aad41bdb6d403005fb540"
+    	pulmon = "572aad41bdb6d403005fb541"   
     
     #else
-    	recepcion = "571262aaa980ba030058a3b0"    
-    	general1 = "571262aaa980ba030058a3b2"     
-    	general2 = "571262aaa980ba030058a40a"     
-    	pulmon = "571262aaa980ba030058a40b"       
+    #	recepcion = "571262aaa980ba030058a3b0"    
+    #	general1 = "571262aaa980ba030058a3b2"     
+    #	general2 = "571262aaa980ba030058a40a"     
+    #	pulmon = "571262aaa980ba030058a40b"       
     #end 
     	
     productosRecepcion = getSkusWithStock(recepcion)
@@ -532,15 +532,15 @@ def self.vaciarRecepcion()
 def self.vaciarPulmon()
 
     #if Rails.env.production?
-    #	recepcion = "572aad41bdb6d403005fb4b8"
-    #	general1 = "572aad41bdb6d403005fb4ba"
-    #	general2 = "572aad41bdb6d403005fb540"
-    #	pulmon = "572aad41bdb6d403005fb541"   
+    	recepcion = "572aad41bdb6d403005fb4b8"
+    	general1 = "572aad41bdb6d403005fb4ba"
+    	general2 = "572aad41bdb6d403005fb540"
+    	pulmon = "572aad41bdb6d403005fb541"   
     #else
-    	recepcion = "571262aaa980ba030058a3b0"    
-    	general1 = "571262aaa980ba030058a3b2"     
-    	general2 = "571262aaa980ba030058a40a"     
-    	pulmon = "571262aaa980ba030058a40b"       
+    #	recepcion = "571262aaa980ba030058a3b0"    
+    #	general1 = "571262aaa980ba030058a3b2"     
+    #	general2 = "571262aaa980ba030058a40a"     
+    #	pulmon = "571262aaa980ba030058a40b"       
    	#end
 
     productosRecepcion = getSkusWithStock(pulmon)

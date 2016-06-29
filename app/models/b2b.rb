@@ -71,14 +71,14 @@ end
 def self.comprarStock(sku, cantidad)
 
   	#if Rails.env.production?
-    #	numGrupo = productosProduccion.fetch(sku)[0]
-    #	idgrupo_proveedor = productosProduccion.fetch(sku)[3]
-    #	precioUnitario = productosProduccion.fetch(sku)[1]
+    	numGrupo = productosProduccion.fetch(sku)[0]
+    	idgrupo_proveedor = productosProduccion.fetch(sku)[3]
+    	precioUnitario = productosProduccion.fetch(sku)[1]
 
     #else
-   		numGrupo = productosDesarrollo.fetch(sku)[0]
-    	idgrupo_proveedor = productosDesarrollo.fetch(sku)[3]
-    	precioUnitario = productosDesarrollo.fetch(sku)[1]
+   	#	numGrupo = productosDesarrollo.fetch(sku)[0]
+    #	idgrupo_proveedor = productosDesarrollo.fetch(sku)[3]
+    #	precioUnitario = productosDesarrollo.fetch(sku)[1]
    # end
 
 	buffer = open('http://integra'+numGrupo.to_s+'.ing.puc.cl/api/consultar/'+ sku.to_s , "Content-Type"=>"application/json").read
@@ -87,10 +87,10 @@ def self.comprarStock(sku, cantidad)
 	if resultado['stock'].to_i >= cantidad.to_i
 		
 		#if Rails.env.production?
-		#	orden = Oc.crearOc("b2b", cantidad.to_i, sku, idgrupo_proveedor, precioUnitario, "lll", "572aac69bdb6d403005fb04a", 1470495430000)
+			orden = Oc.crearOc("b2b", cantidad.to_i, sku, idgrupo_proveedor, precioUnitario, "lll", "572aac69bdb6d403005fb04a", 1470495430000)
 
 		#else 
-			orden = Oc.crearOc("b2b", cantidad.to_i, sku, idgrupo_proveedor, precioUnitario, "lll", "571262b8a980ba030058ab57", 1470495430000)
+		#	orden = Oc.crearOc("b2b", cantidad.to_i, sku, idgrupo_proveedor, precioUnitario, "lll", "571262b8a980ba030058ab57", 1470495430000)
 		#end
 
 		idoc = orden['_id']
@@ -147,30 +147,30 @@ end
 
 def self.obtenerGrupo(grupoID)
 	#if Rails.env.production?
-	#	numGrupo = gruposProduccion.fetch(grupoID)[0]
+		numGrupo = gruposProduccion.fetch(grupoID)[0]
 
 	#else
-		numGrupo = gruposDesarrollo.fetch(grupoID)[0]
+	#	numGrupo = gruposDesarrollo.fetch(grupoID)[0]
 	#end
 
 end
 
 def self.obtenerBanco(grupoID)
 	#if Rails.env.production?
-	#	numGrupo = gruposProduccion.fetch(grupoID)[1]
+		numGrupo = gruposProduccion.fetch(grupoID)[1]
 
 	#else
-		numGrupo = gruposDesarrollo.fetch(grupoID)[1]
+	#	numGrupo = gruposDesarrollo.fetch(grupoID)[1]
 	#end
 
 end
 
 def self.obtenerRecepcion(grupoID)
 	#if Rails.env.production?
-	#	numGrupo = gruposProduccion.fetch(grupoID)[2]
+		numGrupo = gruposProduccion.fetch(grupoID)[2]
 
 	#else
-		numGrupo = gruposDesarrollo.fetch(grupoID)[2]
+	#	numGrupo = gruposDesarrollo.fetch(grupoID)[2]
 	#end
 
 end
